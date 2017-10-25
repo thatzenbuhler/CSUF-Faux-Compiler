@@ -1,0 +1,9 @@
+%%
+floating one;
+integer extra#x;
+re#al := 123.4
+real := .34
+
+read(one, extra#x);
+write(one);
+write(extra#x);

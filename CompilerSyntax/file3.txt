@@ -1,0 +1,26 @@
+@convert (fahr : integer)
+{
+	return 5*(fahr -32)/9;
+}
+
+@multiply (a : integer, b : integer)
+{
+	return (a * b);
+}
+
+@divide (a : integer, b : integer)
+{
+	return (a / b);
+}
+
+%%
+	integer low, high, step#xy;
+
+	read(low, high, step#xy);
+	while(low < high)
+	{ write (low);
+	  write (convert[low]);
+	  low := low + step#xy;
+	}
+	write(multipy(low, high));
+	write(divide(high, low));
