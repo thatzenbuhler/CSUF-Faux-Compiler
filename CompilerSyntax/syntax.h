@@ -8,4 +8,8 @@
 #include<fstream>
 #include<cstdlib>
 #include<vector>
-//test
+#include"lexer.h"
+
+void syntax(vector<Token> &v) {
+
+}

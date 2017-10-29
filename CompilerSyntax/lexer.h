@@ -17,6 +17,9 @@ public:
 	string tokentype;
 	string lexeme;
 
+	Token(string x, string y) { tokentype = x; lexeme = y; }
+	Token() { tokentype = ""; lexeme = ""; }
+
 	void assign(string x, string y)
 	{
 		tokentype = x;
