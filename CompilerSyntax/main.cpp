@@ -1,3 +1,8 @@
+// CPSC 323 Compilers
+// Project 2: Syntax Analyzer
+// main.cpp, lexer.h, syntax.h
+// Tyler Hatzenbuhler
+// Anette Ulrichsen
 #include<iostream>
 #include"lexer.h"
 

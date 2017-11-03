@@ -1,16 +1,21 @@
 Operator %%
+Endline 
 Keyword floating
 Identifier one
 Seperator ;
+Endline 
 Identifier integer
 Identifier extra#x
 Seperator ;
+Endline 
 Identifier re#al
 Operator :=
 Real 123.4
+Endline 
 Keyword real
 Operator :=
 Real .34
+Endline 
 Keyword read
 Seperator (
 Identifier one
@@ -18,13 +23,16 @@ Seperator ,
 Identifier extra#x
 Seperator )
 Seperator ;
+Endline 
 Keyword write
 Seperator (
 Identifier one
 Seperator )
 Seperator ;
+Endline 
 Keyword write
 Seperator (
 Identifier extra#x
 Seperator )
 Seperator ;
+Endline 
