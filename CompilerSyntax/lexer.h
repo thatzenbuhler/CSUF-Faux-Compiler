@@ -40,6 +40,7 @@ bool isKeyword(string);
 bool isOperator(string&, string&, int&);
 bool isSeperator(string);
 bool isInvalid(string);
+bool isQualifier(string);
 
 //this FSM determines if the number being read in is an int or a float
 void numberFSM(string& line, int &i, vector<Token> &v)
@@ -200,6 +201,8 @@ void letterFSM(string &line, int &i, vector<Token> &v)
 	if (isKeyword(tempString))
 		token.assign("Keyword", tempString);
 	//if the string is not a keyword, the Token variable will store the correct information
+	else if (isQualifier(tempString))
+		token.assign("Qualifier", tempString);
 	else
 		token.assign("Identifier", tempString);
 
@@ -328,6 +331,19 @@ bool isSeperator(string sep)
 	return isSep;
 }
 
+bool isQualifier(string qual)
+{
+	bool isQual = false;
+	string qualArr[] = { "integer", "boolean", "floating" };
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (qual == qualArr[i])
+			isQual = true;
+	}
+
+	return isQual;
+}
 //this function identifies whether the character passed to it is unknown or not. The function returns true if the
 //character is invalid
 bool isInvalid(string known)
