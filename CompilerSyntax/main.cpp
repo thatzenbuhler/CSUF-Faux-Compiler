@@ -5,6 +5,7 @@
 // Anette Ulrichsen
 #include<iostream>
 #include"lexer.h"
+#include"syntax.h"
 
 using namespace std;
 
@@ -41,7 +42,7 @@ int main() {
 	input.close();
 
 	// Begins Syntax Analysis
-	// syntax(v);
+	//syntax(v);
 
 	for (int i = 0; i < v.size(); i++)
 	{

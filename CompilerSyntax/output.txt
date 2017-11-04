@@ -1,38 +1,146 @@
+Operator @
+Identifier convert
+Seperator (
+Identifier fahr
+Seperator :
+Identifier integer
+Seperator )
+Endline 
+Seperator {
+Endline 
+Keyword return
+Integer 5
+Operator *
+Seperator (
+Identifier fahr
+Operator -
+Integer 32
+Seperator )
+Operator /
+Integer 9
+Seperator ;
+Endline 
+Seperator }
+Endline 
+Operator @
+Identifier multiply
+Seperator (
+Identifier a
+Seperator :
+Identifier integer
+Seperator ,
+Identifier b
+Seperator :
+Identifier integer
+Seperator )
+Endline 
+Seperator {
+Endline 
+Keyword return
+Seperator (
+Identifier a
+Operator *
+Identifier b
+Seperator )
+Seperator ;
+Endline 
+Seperator }
+Endline 
+Operator @
+Identifier divide
+Seperator (
+Identifier a
+Seperator :
+Identifier integer
+Seperator ,
+Identifier b
+Seperator :
+Identifier integer
+Seperator )
+Endline 
+Seperator {
+Endline 
+Keyword return
+Seperator (
+Identifier a
+Operator /
+Identifier b
+Seperator )
+Seperator ;
+Endline 
+Seperator }
+Endline 
 Operator %%
 Endline 
-Keyword floating
-Identifier one
-Seperator ;
-Endline 
 Identifier integer
-Identifier extra#x
+Identifier low
+Seperator ,
+Identifier high
+Seperator ,
+Identifier step#xy
 Seperator ;
-Endline 
-Identifier re#al
-Operator :=
-Real 123.4
-Endline 
-Keyword real
-Operator :=
-Real .34
 Endline 
 Keyword read
 Seperator (
-Identifier one
+Identifier low
 Seperator ,
-Identifier extra#x
+Identifier high
+Seperator ,
+Identifier step#xy
+Seperator )
+Seperator ;
+Endline 
+Keyword while
+Seperator (
+Identifier low
+Operator <
+Identifier high
+Seperator )
+Endline 
+Seperator {
+Keyword write
+Seperator (
+Identifier low
 Seperator )
 Seperator ;
 Endline 
 Keyword write
 Seperator (
-Identifier one
+Identifier convert
+Seperator [
+Identifier low
+Seperator ]
+Seperator )
+Seperator ;
+Endline 
+Identifier low
+Operator :=
+Identifier low
+Operator +
+Identifier step#xy
+Seperator ;
+Endline 
+Seperator }
+Endline 
+Keyword write
+Seperator (
+Identifier multipy
+Seperator (
+Identifier low
+Seperator ,
+Identifier high
+Seperator )
 Seperator )
 Seperator ;
 Endline 
 Keyword write
 Seperator (
-Identifier extra#x
+Identifier divide
+Seperator (
+Identifier high
+Seperator ,
+Identifier low
+Seperator )
 Seperator )
 Seperator ;
 Endline 
