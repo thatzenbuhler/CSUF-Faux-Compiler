@@ -133,7 +133,8 @@ void Function(vector<Token> &v, int &iterator, int &linecount) {
 			(v[iterator + 2].lexeme == "Endline" && v[iterator + 1].lexeme == "{"))
 			Body(v, iterator, linecount);
 
-		if (v[iterator + 2].tokentype == "Qualifier")
+		iterator += 2;
+		if (Qualifier(v, iterator, linecount))
 			OptDeclarationList(v, iterator, linecount);
 	}
 
