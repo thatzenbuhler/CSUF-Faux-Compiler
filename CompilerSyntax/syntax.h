@@ -128,29 +128,69 @@ void Function(vector<Token> &v, int &iterator, int &linecount) {
 		if (v[iterator + 2].tokentype == "Qualifier")
 			OptDeclarationList(v, iterator, linecount);
 	}
+
+	//still needs error check in here
 }
 
 void OptParameterList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Opt Parameter List> ";
+	++iterator;
 
-	//If empty, return
-	ParameterList(v, iterator, linecount);
+	if (v[iterator + 1].lexeme != ":")
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected a : after " << v[iterator].lexeme;
+		return; ///break out
+	} else
+		ParameterList(v, iterator, linecount);
 }
 
 void ParameterList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Parameter List> ";
+	iterator += 2;
+	
+	if (v[iterator].tokentype == "Qualifier")
+	{
+		if (v[iterator + 1].lexeme == ")")
+		{
+			Parameter(v, iterator, linecount);
+			iterator++;
+			Function(v, iterator, linecount);
+		}
 
-	// If not parameter, return;
-	Parameter(v, iterator, linecount);
-	ParameterList(v, iterator, linecount);
+		if ((v[iterator + 1].lexeme == ",") && (v[iterator + 2].tokentype == "Identifier")
+			&& (v[iterator + 3].lexeme == ":"))
+		{
+			Parameter(v, iterator, linecount);
+			iterator += 2;
+			ParameterList(v, iterator, linecount);
+		}
+			
+	}
+
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected a qualifier after :";
+		return; //break out
+
+	}
+
 }
 
+//may have made this function unneccessary when i defined parameter list??
 void Parameter(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Parameter> ";
 
-	IDs(v, iterator, linecount);
+	cout << "<IDs> : <Qualifier>\n";
+	cout << v[iterator - 3].lexeme << " : " << v[iterator - 1].lexeme << endl;
+
+	//IDs(v, iterator, linecount);
 	// :
-	Qualifier(v, iterator, linecount);
+	//Qualifier(v, iterator, linecount);
 }
 
 void Qualifier(vector<Token> &v, int &iterator, int &linecount) {
