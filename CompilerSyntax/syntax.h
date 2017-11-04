@@ -20,7 +20,7 @@ void Function(vector<Token> &, int &, int &);
 void OptParameterList(vector<Token> &, int &, int &);
 void ParameterList(vector<Token> &, int &, int &);
 void Parameter(vector<Token> &, int &, int &);
-void Qualifier(vector<Token> &, int &, int &);
+bool Qualifier(vector<Token> &, int &, int &);
 void Body(vector<Token> &, int &, int &);
 void OptDeclarationList(vector<Token> &, int &, int &);
 void DeclarationList(vector<Token> &, int &, int &);
@@ -68,9 +68,11 @@ void rat17f(vector<Token> &v, int &iterator, int &linecount) {
 				<< "Can not have text on same line as \"%%\"";
 			return; /////meant to break out of syntax analyzer
 		}
-		if (v[iterator + 2].tokentype == "Qualifier")
+		iterator += 2;
+		if (Qualifier(v, iterator, linecount))
 			OptDeclarationList(v, iterator, linecount);
 
+		iterator -= 2;
 		if (v[iterator + 2].lexeme == "{" | v[iterator + 2].tokentype == "Keyword")
 			StatementList(v, iterator, linecount);
 	}
@@ -116,8 +118,14 @@ void Function(vector<Token> &v, int &iterator, int &linecount) {
 	cout << " <Function> ";
 	++iterator;
 
-	if (v[iterator + 1].tokentype == "Identifier")
+	if (v[iterator + 1].tokentype == "Identifier" && v[iterator].lexeme != ")")
 		OptParameterList(v, iterator, linecount);
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected identifier after (";
+		return; ///break out
+	}
 
 	if (v[iterator].lexeme == ")") 
 	{
@@ -129,7 +137,6 @@ void Function(vector<Token> &v, int &iterator, int &linecount) {
 			OptDeclarationList(v, iterator, linecount);
 	}
 
-	//still needs error check in here
 }
 
 void OptParameterList(vector<Token> &v, int &iterator, int &linecount) {
@@ -151,7 +158,7 @@ void ParameterList(vector<Token> &v, int &iterator, int &linecount) {
 	cout << " <Parameter List> ";
 	iterator += 2;
 	
-	if (v[iterator].tokentype == "Qualifier")
+	if (Qualifier(v, iterator, linecount))
 	{
 		if (v[iterator + 1].lexeme == ")")
 		{
@@ -193,10 +200,13 @@ void Parameter(vector<Token> &v, int &iterator, int &linecount) {
 	//Qualifier(v, iterator, linecount);
 }
 
-void Qualifier(vector<Token> &v, int &iterator, int &linecount) {
+bool Qualifier(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Qualifier> ";
 
-	// check if token == integer, boolean, or floating
+	if (v[iterator].tokentype == "Keyword" && (v[iterator].lexeme == "integer") |
+		(v[iterator].lexeme == "boolean") | (v[iterator].lexeme == "floating"))
+		return true;
 }
 
 void Body(vector<Token> &v, int &iterator, int &linecount) {

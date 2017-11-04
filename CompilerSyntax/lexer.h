@@ -267,9 +267,9 @@ void lexer(string line, vector<Token> &v, int &i) {
 bool isKeyword(string key)
 {
 	bool isKey = false;
-	string keyArr[79] = { "alignas", "alignof", "and", "asm", "auto", "bitand", "bitor", "bool", "break", "case", "catch", "char", "class", "compl",
+	string keyArr[79] = { "alignas", "alignof", "and", "asm", "auto", "bitand", "bitor", "boolean", "break", "case", "catch", "char", "class", "compl",
 		"concept", "const", "constexpr", "continue", "decltype", "default", "delete", "do", "double", "else", "enum", "explicit", "export",
-		"extern", "false", "float", "for", "friend", "goto", "if", "import", "inline", "int", "long", "module", "mutable", "namespace", "new",
+		"extern", "false", "floating", "for", "friend", "goto", "if", "import", "inline", "integer", "long", "module", "mutable", "namespace", "new",
 		"noexcept", "not", "nullptr", "operator", "or", "private", "protected", "public", "register", "requires", "return", "short", "signed",
 		"sizeof", "static", "struct", "switch", "synchronized", "template", "this", "throw", "true", "try", "typedef", "typeid", "typename",
 		"union", "unsigned", "floating", "virtual", "void", "real", "while", "boolean", "fi", "read", "write" };
@@ -331,6 +331,7 @@ bool isSeperator(string sep)
 	return isSep;
 }
 
+/*
 bool isQualifier(string qual)
 {
 	bool isQual = false;
@@ -344,6 +345,7 @@ bool isQualifier(string qual)
 
 	return isQual;
 }
+*/
 //this function identifies whether the character passed to it is unknown or not. The function returns true if the
 //character is invalid
 bool isInvalid(string known)
