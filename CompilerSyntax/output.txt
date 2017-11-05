@@ -3,7 +3,7 @@ Identifier convert
 Seperator (
 Identifier fahr
 Seperator :
-Keyword integer
+Qualifier integer
 Seperator )
 Endline 
 Seperator {
@@ -27,11 +27,11 @@ Identifier multiply
 Seperator (
 Identifier a
 Seperator :
-Keyword integer
+Qualifier integer
 Seperator ,
 Identifier b
 Seperator :
-Keyword integer
+Qualifier integer
 Seperator )
 Endline 
 Seperator {
@@ -51,11 +51,11 @@ Identifier divide
 Seperator (
 Identifier a
 Seperator :
-Keyword integer
+Qualifier integer
 Seperator ,
 Identifier b
 Seperator :
-Keyword integer
+Qualifier integer
 Seperator )
 Endline 
 Seperator {
@@ -72,7 +72,7 @@ Seperator }
 Endline 
 Operator %%
 Endline 
-Keyword integer
+Qualifier integer
 Identifier low
 Seperator ,
 Identifier high
