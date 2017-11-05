@@ -31,7 +31,7 @@ void StatementList(vector<Token> &, int &, int &);
 void Statement(vector<Token> &, int &, int &);
 void Compound(vector<Token> &, int &, int &);
 void Assign(vector<Token> &, int &, int &);
-void If(vector<Token> &, int &, int &, bool &);
+void If(vector<Token> &, int &, int &);
 void Return(vector<Token> &, int &, int &);
 void Write(vector<Token> &, int &, int &);
 void Read(vector<Token> &, int &, int &);
@@ -317,12 +317,10 @@ void StatementList(vector<Token> &v, int &iterator, int &linecount) {
 	//StatementList(v, iterator, linecount);
 }
 
-//needs error checking
+//this may be wrong
 void Statement(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Statement> ";
-	bool seenIF = false;
-	//bool seenWrite = false;
 
 	if (v[iterator].lexeme == "{")
 	{
@@ -337,18 +335,20 @@ void Statement(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "if")
 	{
 		++iterator;
-		seenIF = true;
-		If(v, iterator, linecount, seenIF);
+		//seenIF = true;
+		If(v, iterator, linecount);
 	}
 
 	if (v[iterator].lexeme == "else")
 	{
-		++iterator;
-		Statement(v, iterator, linecount);
+		//++iterator;
+		//Statement(v, iterator, linecount);
+		//meant to return this function without finishing the other conditionals
+		return;
 	}
 
 	if (v[iterator].lexeme == "fi")
-		If(v, iterator, linecount, seenIF);
+		If(v, iterator, linecount);
 
 	if (v[iterator].lexeme == "return")	
 		Return(v, iterator, linecount);
@@ -396,41 +396,50 @@ void Assign(vector<Token> &v, int &iterator, int &linecount) {
 	Expression(v, iterator, linecount);
 }
 
-// need some sort of error checking to ensure that fi comes after an
-// if/else statement
-void If(vector<Token> &v, int &iterator, int &linecount, bool & seenIF) {
+// this may be wrong
+void If(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <If> ";
 
 	if (v[iterator].lexeme == "(")
 	{
+		++iterator;
 		Condition(v, iterator, linecount);
+
+		if (v[iterator].lexeme == ")")
+		{
+			++iterator;
+			Statement(v, iterator, linecount);
+		}
+		else
+		{
+			cout << "Error on line " << linecount << endl <<
+				"Expected a ) after condition";
+			exit(1);
+		}
 	}
-	else if (v[iterator].lexeme == ")")
-	{
-		Statement(v, iterator, linecount);
-	}
-	else if (v[iterator].lexeme == "fi" && seenIF == false)
+
+	if (v[iterator].lexeme == "fi" && v[iterator - 1].lexeme == ")")
 	{
 		cout << "Error on line " << linecount << endl <<
-			"Can not have fi without an if/else statement";
+			"Expected a statement before fi";
 		exit(1);
 	}
-	else if (v[iterator].lexeme == "else" && seenIF == false)
+	else
 	{
-		cout << "Error on line " << linecount << endl <<
+		++iterator;
+		Statement(v, iterator, linecount);
+	}
+
+	if (v[iterator].lexeme == "else")
+	{
+		++iterator;
+		Statement(v, iterator, linecount);
+		/*cout << "Error on line " << linecount << endl <<
 			"Can not have else without an if statement";
-		exit(1);
-	}
-	else if (v[iterator].lexeme == "fi")
-	{
-		Statement(v, iterator, linecount);
+		exit(1);*/
 	}
 	
-	/*cout << "Error on line " << linecount << endl <<
-			"Expected a ( after if";
-		exit(1); ///break out*/
-
 }
 
 void Return(vector<Token> &v, int &iterator, int &linecount) {
@@ -527,12 +536,26 @@ void Read(vector<Token> &v, int &iterator, int &linecount) {
 
 void While(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <While> ";
 
-	// keyword: while
-	// (
-	Condition(v, iterator, linecount);
-	// )
-	Statement(v, iterator, linecount);
+	if (v[iterator + 1].lexeme == "(")
+	{
+		iterator += 2;
+		Condition(v, iterator, linecount);
+
+		if (v[iterator].lexeme == ")")
+		{
+			++iterator;
+			Statement(v, iterator, linecount);
+		}
+		else
+		{
+			cout << "Error on line " << linecount << endl <<
+				"Expected a ) after condition";
+			exit(1); /// break out
+		}
+
+	}
 }
 
 void Condition(vector<Token> &v, int &iterator, int &linecount) {
