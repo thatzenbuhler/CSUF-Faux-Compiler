@@ -68,14 +68,14 @@ void rat17f(vector<Token> &v, int &iterator, int &linecount) {
 				<< "Can not have text on same line as \"%%\"";
 			return; /////meant to break out of syntax analyzer
 		}
-		iterator += 2;
-		if (Qualifier(v, iterator, linecount))
+
+		if (v[iterator + 2].tokentype == "Qualifier")
 			OptDeclarationList(v, iterator, linecount);
 
-		iterator -= 2;
-		if (v[iterator + 2].lexeme == "{" | v[iterator + 2].tokentype == "Keyword")
-			StatementList(v, iterator, linecount);
 	}
+		//if (v[iterator + 2].lexeme == "{" | v[iterator + 2].tokentype == "Keyword")
+		StatementList(v, iterator, linecount);
+	
 }
 
 void OptFunctionDefinitions(vector<Token> &v, int &iterator, int &linecount) {
@@ -118,7 +118,7 @@ void Function(vector<Token> &v, int &iterator, int &linecount) {
 	cout << " <Function> ";
 	++iterator;
 
-	if (v[iterator + 1].tokentype == "Identifier" && v[iterator].lexeme != ")")
+	if (v[iterator].tokentype == "Identifier")
 		OptParameterList(v, iterator, linecount);
 
 	if (v[iterator].lexeme == ")")
@@ -161,7 +161,7 @@ void ParameterList(vector<Token> &v, int &iterator, int &linecount) {
 	cout << " <Parameter List> ";
 	iterator += 2;
 
-	if (Qualifier(v, iterator, linecount))
+	if (v[iterator].tokentype == "Qualifier")
 	{
 		if (v[iterator + 1].lexeme == ")")
 		{
@@ -207,7 +207,6 @@ void Parameter(vector<Token> &v, int &iterator, int &linecount) {
 void Qualifier(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Qualifier> ";
-
 }
 
 void Body(vector<Token> &v, int &iterator, int &linecount) {
@@ -224,7 +223,7 @@ void OptDeclarationList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Opt Declaration List> ";
 
-	if (Qualifier(v, iterator, linecount))
+	if (v[iterator].tokentype == "Qualifier")
 		DeclarationList(v, iterator, linecount);
 	else
 	{
@@ -259,7 +258,23 @@ void Declaration(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 
 	Qualifier(v, iterator, linecount);
+	++iterator;
 	IDs(v, iterator, linecount);
+	++iterator;
+	
+	if (v[iterator].lexeme == "Endline")
+		++iterator;
+
+	if (v[iterator].lexeme == "{")
+	{
+		++iterator;
+		Body(v, iterator, linecount);
+	}
+	else
+	{
+		++iterator;
+		rat17f(v, iterator, linecount);
+	}
 }
 
 void IDs(vector<Token> &v, int &iterator, int &linecount) {
