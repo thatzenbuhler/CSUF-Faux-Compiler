@@ -144,7 +144,7 @@ void Function(vector<Token> &v, int &iterator, int &linecount) {
 void OptParameterList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Opt Parameter List> ";
-	++iterator;
+	//++iterator;
 
 	if (v[iterator + 1].lexeme != ":")
 	{
@@ -166,7 +166,6 @@ void ParameterList(vector<Token> &v, int &iterator, int &linecount) {
 		if (v[iterator + 1].lexeme == ")")
 		{
 			Parameter(v, iterator, linecount);
-			iterator++;
 			Function(v, iterator, linecount);
 		}
 
@@ -196,7 +195,7 @@ void Parameter(vector<Token> &v, int &iterator, int &linecount) {
 	cout << " <Parameter> ";
 
 	cout << "<IDs> : <Qualifier>\n";
-	cout << v[iterator - 3].lexeme << " : " << v[iterator - 1].lexeme << endl;
+	cout << v[iterator - 2].lexeme << " : " << v[iterator].lexeme << endl;
 
 	//IDs(v, iterator, linecount);
 	// :
@@ -223,6 +222,8 @@ void Body(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "}")
 		rat17f(v, iterator, linecount);
 
+	cout << " { ";
+	++iterator;
 	StatementList(v, iterator, linecount);
 }
 
@@ -306,7 +307,8 @@ void IDs(vector<Token> &v, int &iterator, int &linecount) {
 //need end of file indicator
 void StatementList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
-	cout << " <Statement List> ";
+	//cout << " <Statement List> ";
+	//cout << endl << iterator << endl;
 
 	if (v[iterator].lexeme == "{" | v[iterator].tokentype == "Identifier" | v[iterator].tokentype == "Keyword")
 		Statement(v, iterator, linecount);
@@ -452,6 +454,7 @@ void If(vector<Token> &v, int &iterator, int &linecount) {
 void Return(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Return> ";
+	++iterator;
 	
 	if (v[iterator + 1].lexeme == ";" && v[iterator + 2].lexeme == "}")
 	{
@@ -567,6 +570,7 @@ void While(vector<Token> &v, int &iterator, int &linecount) {
 
 void Condition(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Condition> ";
 
 	if (v[iterator].lexeme == ")")
 		return;
@@ -578,6 +582,7 @@ void Condition(vector<Token> &v, int &iterator, int &linecount) {
 
 void Relop(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Relop> ";
 
 	if (v[iterator].lexeme == "=" | v[iterator].lexeme == "/=" || v[iterator].lexeme == ">" || v[iterator].lexeme == "<" || v[iterator].lexeme == "=>" || v[iterator].lexeme == "<=")
 	{
@@ -595,6 +600,7 @@ void Relop(vector<Token> &v, int &iterator, int &linecount) {
 
 void Expression(vector<Token> &v, int &iterator, int &linecount) { // LEFT RECURSION, attemped removal
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Expression> ";
 
 	Term(v, iterator, linecount);
 	// If next token is expression, then
@@ -607,6 +613,7 @@ void Expression(vector<Token> &v, int &iterator, int &linecount) { // LEFT RECUR
 
 void ExpressionPrime(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Expression Prime> ";
 
 	if (v[iterator].lexeme != "+" && v[iterator].lexeme != "-")
 	{
@@ -623,6 +630,7 @@ void ExpressionPrime(vector<Token> &v, int &iterator, int &linecount) {
 
 void Term(vector<Token> &v, int &iterator, int &linecount) { // LEFT RECURSION, attempted removal
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Term> ";
 
 	Factor(v, iterator, linecount);
 	// if next token is term, then
@@ -635,6 +643,7 @@ void Term(vector<Token> &v, int &iterator, int &linecount) { // LEFT RECURSION, 
 
 void TermPrime(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Term Prime> ";
 
 	if (v[iterator].lexeme == "*" || v[iterator].lexeme == "/")
 	{
@@ -650,6 +659,7 @@ void TermPrime(vector<Token> &v, int &iterator, int &linecount) {
 
 void Factor(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Factor> ";
 
 	if (v[iterator].lexeme == "-")
 		iterator++;
@@ -659,6 +669,9 @@ void Factor(vector<Token> &v, int &iterator, int &linecount) {
 
 void Primary(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Primary> ";
+
+	cout << endl << iterator << endl;
 
 	if (v[iterator].tokentype == "Integer" || v[iterator].tokentype == "Real" || v[iterator].tokentype == "Identifier")
 	{
