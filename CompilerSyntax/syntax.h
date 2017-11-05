@@ -296,6 +296,7 @@ void IDs(vector<Token> &v, int &iterator, int &linecount) {
 	
 }
 
+//need end of file indicator
 void StatementList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Statement List> ";
@@ -372,7 +373,8 @@ void Assign(vector<Token> &v, int &iterator, int &linecount) {
 			"Expected an assignment operator";
 		exit(1); //break out
 	}
-
+	
+	iterator += 2;
 	Expression(v, iterator, linecount);
 }
 
