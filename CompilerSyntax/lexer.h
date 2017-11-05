@@ -331,7 +331,7 @@ bool isSeperator(string sep)
 	return isSep;
 }
 
-/*
+
 bool isQualifier(string qual)
 {
 	bool isQual = false;
@@ -345,7 +345,7 @@ bool isQualifier(string qual)
 
 	return isQual;
 }
-*/
+
 //this function identifies whether the character passed to it is unknown or not. The function returns true if the
 //character is invalid
 bool isInvalid(string known)
