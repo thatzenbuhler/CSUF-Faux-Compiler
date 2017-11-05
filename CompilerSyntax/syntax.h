@@ -207,16 +207,23 @@ void Parameter(vector<Token> &v, int &iterator, int &linecount) {
 void Qualifier(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Qualifier> ";
+	if (v[iterator].tokentype == "Qualifier")
+		iterator++;
+	else
+	{
+		cout << "Error on line " << linecount << ", expected qualifier" << endl;
+		exit(1);
+	}
 }
 
 void Body(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Body> ";
 
-	StatementList(v, iterator, linecount);
-
 	if (v[iterator].lexeme == "}")
 		rat17f(v, iterator, linecount);
+
+	StatementList(v, iterator, linecount);
 }
 
 void OptDeclarationList(vector<Token> &v, int &iterator, int &linecount) {
@@ -317,7 +324,7 @@ void StatementList(vector<Token> &v, int &iterator, int &linecount) {
 	//StatementList(v, iterator, linecount);
 }
 
-//needs error checking
+//this may be wrong
 void Statement(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Statement> ";
@@ -332,14 +339,32 @@ void Statement(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].tokentype == "Identifier")
 		Assign(v, iterator, linecount);
 
-	if (v[iterator].lexeme == "if")	
+	if (v[iterator].lexeme == "if")
+	{
+		++iterator;
+		//seenIF = true;
+		If(v, iterator, linecount);
+	}
+
+	if (v[iterator].lexeme == "else")
+	{
+		//++iterator;
+		//Statement(v, iterator, linecount);
+		//meant to return this function without finishing the other conditionals
+		return;
+	}
+
+	if (v[iterator].lexeme == "fi")
 		If(v, iterator, linecount);
 
 	if (v[iterator].lexeme == "return")	
 		Return(v, iterator, linecount);
 
-	if (v[iterator].lexeme == "write")	
+	if (v[iterator].lexeme == "write")
+	{
+		//seenWrite = true;
 		Write(v, iterator, linecount);
+	}
 
 	if (v[iterator].lexeme == "read")	
 		Read(v, iterator, linecount);
@@ -378,64 +403,173 @@ void Assign(vector<Token> &v, int &iterator, int &linecount) {
 	Expression(v, iterator, linecount);
 }
 
+// this may be wrong
 void If(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <If> ";
 
-	// if
-	// (
-	Condition(v, iterator, linecount);
-	// )
-	Statement(v, iterator, linecount);
-	// if "fi", finish, if "else", continue
-	Statement(v, iterator, linecount);
-	// fi
+	if (v[iterator].lexeme == "(")
+	{
+		++iterator;
+		Condition(v, iterator, linecount);
 
+		if (v[iterator].lexeme == ")")
+		{
+			++iterator;
+			Statement(v, iterator, linecount);
+		}
+		else
+		{
+			cout << "Error on line " << linecount << endl <<
+				"Expected a ) after condition";
+			exit(1);
+		}
+	}
+
+	if (v[iterator].lexeme == "fi" && v[iterator - 1].lexeme == ")")
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected a statement before fi";
+		exit(1);
+	}
+	else
+	{
+		++iterator;
+		Statement(v, iterator, linecount);
+	}
+
+	if (v[iterator].lexeme == "else")
+	{
+		++iterator;
+		Statement(v, iterator, linecount);
+		/*cout << "Error on line " << linecount << endl <<
+			"Can not have else without an if statement";
+		exit(1);*/
+	}
+	
 }
 
 void Return(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
-
-	// keyword: return
-	// ;
-
-	// OR
-
-	// return
-	Expression(v, iterator, linecount);
-	// ;
+	cout << " <Return> ";
+	
+	if (v[iterator + 1].lexeme == ";" && v[iterator + 2].lexeme == "}")
+	{
+		iterator += 2;
+		Body(v, iterator, linecount);
+	}
+	else if (v[iterator + 1].lexeme == ";" && v[iterator + 2].lexeme != "}")
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected a } after ;";
+		exit(1);
+	}
+	else
+		Expression(v, iterator, linecount);
+	
 }
 
 void Write(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Write> ";
 
-	// keyword: write
-	// (
-	Expression(v, iterator, linecount);
-	// )
+	if (v[iterator + 1].lexeme == "(")
+	{
+		iterator += 2;
+		Expression(v, iterator, linecount);
+
+		if (v[iterator].lexeme != ")")
+		{
+			cout << "Error on line " << linecount << endl <<
+				"Expected a ) after expression";
+			exit(1);
+		}
+		else if (v[iterator].lexeme == ")" && v[iterator + 1].lexeme != ";")
+		{
+			cout << "Error on line " << linecount << endl <<
+				"Expected a ; after )";
+			exit(1);
+		}
+		else if (v[iterator].lexeme == ")" && v[iterator + 1].lexeme == ";")
+		{
+			iterator += 2;
+			Statement(v, iterator, linecount);
+		}
+	}
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected ( after write";
+		exit(1);
+	}
+	
 }
 
 void Read(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Read> ";
 
-	// keyword: read
-	// (
-	IDs(v, iterator, linecount);
-	// )
-	// ;
+	if (v[iterator + 1].lexeme == "(")
+	{
+		iterator += 2;
+		IDs(v, iterator, linecount);
+
+		if (v[iterator].lexeme != ")")
+		{
+			cout << "Error on line " << linecount << endl <<
+				"Expected a ) after identifiers";
+			exit(1);
+		}
+		else if (v[iterator].lexeme == ")" && v[iterator + 1].lexeme != ";")
+		{
+			cout << "Error on line " << linecount << endl <<
+				"Expected a ; after )";
+			exit(1);
+		}
+		else if (v[iterator].lexeme == ")" && v[iterator + 1].lexeme == ";")
+		{
+			iterator += 2;
+			Statement(v, iterator, linecount);
+		}
+		
+	}
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected ( after read";
+		exit(1);
+	}	
 }
 
 void While(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <While> ";
 
-	// keyword: while
-	// (
-	Condition(v, iterator, linecount);
-	// )
-	Statement(v, iterator, linecount);
+	if (v[iterator + 1].lexeme == "(")
+	{
+		iterator += 2;
+		Condition(v, iterator, linecount);
+
+		if (v[iterator].lexeme == ")")
+		{
+			++iterator;
+			Statement(v, iterator, linecount);
+		}
+		else
+		{
+			cout << "Error on line " << linecount << endl 
+			 	 << "Expected a ) after condition" << endl;
+			exit(1); /// break out
+		}
+
+	}
 }
 
 void Condition(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+
+	if (v[iterator].lexeme == ")")
+		return;
 
 	Expression(v, iterator, linecount);
 	Relop(v, iterator, linecount);
@@ -445,7 +579,18 @@ void Condition(vector<Token> &v, int &iterator, int &linecount) {
 void Relop(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 
-	// check if token is =, /=, >, <, =>, <=
+	if (v[iterator].lexeme == "=" | v[iterator].lexeme == "/=" || v[iterator].lexeme == ">" || v[iterator].lexeme == "<" || v[iterator].lexeme == "=>" || v[iterator].lexeme == "<=")
+	{
+		iterator++;
+		return;
+	}
+
+	else
+	{
+		cout << "Error on line " << linecount << endl
+			<< "Expected relational operator token" << endl;
+		exit(1);
+	}
 }
 
 void Expression(vector<Token> &v, int &iterator, int &linecount) { // LEFT RECURSION, attemped removal
@@ -453,16 +598,27 @@ void Expression(vector<Token> &v, int &iterator, int &linecount) { // LEFT RECUR
 
 	Term(v, iterator, linecount);
 	// If next token is expression, then
-	ExpressionPrime(v, iterator, linecount);
+	if (v[iterator].lexeme == "+" || v[iterator].lexeme == "-")
+	{
+		ExpressionPrime(v, iterator, linecount);
+	}
+	
 }
 
 void ExpressionPrime(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 
-	// If not + or -, return
-	// + or -
-	Term(v, iterator, linecount);
-	ExpressionPrime(v, iterator, linecount);
+	if (v[iterator].lexeme != "+" && v[iterator].lexeme != "-")
+	{
+		iterator++;
+		return;
+	}
+
+	else
+	{
+		Term(v, iterator, linecount);
+		ExpressionPrime(v, iterator, linecount);
+	}
 }
 
 void Term(vector<Token> &v, int &iterator, int &linecount) { // LEFT RECURSION, attempted removal
@@ -470,30 +626,80 @@ void Term(vector<Token> &v, int &iterator, int &linecount) { // LEFT RECURSION, 
 
 	Factor(v, iterator, linecount);
 	// if next token is term, then
-	TermPrime(v, iterator, linecount);
+	if (v[iterator].lexeme == "*" || v[iterator].lexeme == "/")
+	{
+		TermPrime(v, iterator, linecount);
+	}
+	
 }
 
 void TermPrime(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 
-	// if not * or /, return
-	// * or /
-	Factor(v, iterator, linecount);
-	TermPrime(v, iterator, linecount);
+	if (v[iterator].lexeme == "*" || v[iterator].lexeme == "/")
+	{
+		iterator++;
+		return;
+	}
+	else
+	{
+		Factor(v, iterator, linecount);
+		TermPrime(v, iterator, linecount);
+	}
 }
 
 void Factor(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 
-	// -
+	if (v[iterator].lexeme == "-")
+		iterator++;
 	Primary(v, iterator, linecount);
-	// OR
-	Primary(v, iterator, linecount);
+	
 }
 
 void Primary(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 
+	if (v[iterator].tokentype == "Integer" || v[iterator].tokentype == "Real" || v[iterator].tokentype == "Identifier")
+	{
+		iterator++;
+		return;
+	}
+	if (v[iterator].lexeme == "true" || v[iterator].lexeme == "false")
+	{
+		iterator++;
+		return;
+	}
+	if (v[iterator].lexeme == "(")
+	{
+		Expression(v, iterator, linecount);
+		if (v[iterator].lexeme == ")")
+		{
+			iterator++;
+			return;
+		}
+		else
+		{
+			cout << "Error on line " << linecount << ", expected closing )" << endl;
+			exit(1);
+		}
+	}
+	if (v[iterator].lexeme == "[") {
+		iterator++;
+		IDs(v, iterator, linecount);
+		if (v[iterator].lexeme == "]")
+		{
+			iterator++;
+			return;
+		}
+		else
+		{
+			cout << "Error on line " << linecount << ", expected closing ]" << endl;
+			exit(1);
+		}
+	}
+	
+	
 	// For this function, checking the token should point us to which function to call
 	//Identifier(v, iterator, linecount);
 	// or
@@ -501,11 +707,11 @@ void Primary(vector<Token> &v, int &iterator, int &linecount) {
 	// or
 	//Identifier(v, iterator, linecount);
 	// [
-	IDs(v, iterator, linecount);
+	
 	// ]
 	// or
 	// (
-	Expression(v, iterator, linecount);
+	
 	// )
 	// or
 	// token: real
