@@ -26,7 +26,7 @@ void OptDeclarationList(vector<Token> &, int &, int &);
 void DeclarationList(vector<Token> &, int &, int &);
 void Declaration(vector<Token> &, int &, int &);
 void IDs(vector<Token> &, int &, int &);
-void Identifier(vector<Token> &, int &, int &);
+//void Identifier(vector<Token> &, int &, int &);
 void StatementList(vector<Token> &, int &, int &);
 void Statement(vector<Token> &, int &, int &);
 void Compound(vector<Token> &, int &, int &);
@@ -47,118 +47,252 @@ void Primary(vector<Token> &, int &, int &);
 
 bool syntax(vector<Token> &v) {
 	int iterator = 0;
-	int linecount = 0;
+	int linecount = 1;
+
 	rat17f(v, iterator, linecount);
+
 	return true; // Essentially, if the parse reaches this line there were no errors.
 }
 
 void rat17f(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 
-	OptFunctionDefinitions(v, iterator, linecount);
-	// %%
-	OptDeclarationList(v, iterator, linecount);
-	StatementList(v, iterator, linecount);
+	if (v[iterator].lexeme == "@")
+		OptFunctionDefinitions(v, iterator, linecount);
+
+	if (v[iterator].lexeme == "%%")
+	{
+		if (v[iterator + 1].lexeme != "Endline")
+		{
+			cout << "Error on line " << linecount << endl
+				<< "Can not have text on same line as \"%%\"";
+			return; /////meant to break out of syntax analyzer
+		}
+
+		if (v[iterator + 2].tokentype == "Qualifier")
+			OptDeclarationList(v, iterator, linecount);
+
+	}
+		//if (v[iterator + 2].lexeme == "{" | v[iterator + 2].tokentype == "Keyword")
+		StatementList(v, iterator, linecount);
+	
 }
 
 void OptFunctionDefinitions(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Opt Function Definitions> ";
+	++iterator;
+
+	if (v[iterator].tokentype == "Identifier")
+		FunctionDefinitions(v, iterator, linecount);
 
 	// if token not function definition, return
-	FunctionDefinitions(v, iterator, linecount);
+	else
+	{
+		cout << "Error on line " << linecount << endl
+			<< "Expected an identifier after @";
+		return; //break out of syntax analyzer
+	}
 }
 
 void FunctionDefinitions(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Function Definitions> ";
+	++iterator;
 
 	// If next isn't function, return
-	Function(v, iterator, linecount);
-	FunctionDefinitions(v, iterator, linecount);
+	if (v[iterator].lexeme == "(")
+		Function(v, iterator, linecount);
+
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected a ( after identifier";
+		return; ///break out
+	}
+	//FunctionDefinitions(v, iterator, linecount);
 }
 
 void Function(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Function> ";
+	++iterator;
 
-	//@
-	// identifier
-	// (
-	OptParameterList(v, iterator, linecount);
-	// )
-	OptDeclarationList(v, iterator, linecount);
-	Body(v, iterator, linecount);
+	if (v[iterator].tokentype == "Identifier")
+		OptParameterList(v, iterator, linecount);
+
+	if (v[iterator].lexeme == ")")
+	{
+		if ((v[iterator + 1].lexeme == "Endline" && v[iterator + 2].lexeme == "{") |
+			(v[iterator + 2].lexeme == "Endline" && v[iterator + 1].lexeme == "{"))
+			iterator += 2;
+		Body(v, iterator, linecount);
+
+		if (v[iterator + 2].tokentype == "Qualifier")
+			OptDeclarationList(v, iterator, linecount);
+	}
+
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected identifier or ) after (";
+		return; ///break out
+	}
+
 }
 
 void OptParameterList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Opt Parameter List> ";
+	++iterator;
 
-	//If empty, return
-	ParameterList(v, iterator, linecount);
+	if (v[iterator + 1].lexeme != ":")
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected a : after " << v[iterator].lexeme;
+		return; ///break out
+	}
+	else
+		ParameterList(v, iterator, linecount);
 }
 
 void ParameterList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Parameter List> ";
+	iterator += 2;
 
-	// If not parameter, return;
-	Parameter(v, iterator, linecount);
-	ParameterList(v, iterator, linecount);
+	if (v[iterator].tokentype == "Qualifier")
+	{
+		if (v[iterator + 1].lexeme == ")")
+		{
+			Parameter(v, iterator, linecount);
+			iterator++;
+			Function(v, iterator, linecount);
+		}
+
+		if ((v[iterator + 1].lexeme == ",") && (v[iterator + 2].tokentype == "Identifier")
+			&& (v[iterator + 3].lexeme == ":"))
+		{
+			Parameter(v, iterator, linecount);
+			iterator += 2;
+			ParameterList(v, iterator, linecount);
+		}
+
+	}
+
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected a qualifier after :";
+		return; //break out
+
+	}
+
 }
 
+//may have made this function unneccessary when i defined parameter list??
 void Parameter(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Parameter> ";
 
-	IDs(v, iterator, linecount);
+	cout << "<IDs> : <Qualifier>\n";
+	cout << v[iterator - 3].lexeme << " : " << v[iterator - 1].lexeme << endl;
+
+	//IDs(v, iterator, linecount);
 	// :
-	Qualifier(v, iterator, linecount);
+	//Qualifier(v, iterator, linecount);
 }
 
+//needs work
 void Qualifier(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
-
-	// check if token == integer, boolean, or floating
+	cout << " <Qualifier> ";
 }
 
 void Body(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Body> ";
 
-	//{
 	StatementList(v, iterator, linecount);
-	//}
+
+	if (v[iterator].lexeme == "}")
+		rat17f(v, iterator, linecount);
 }
 
 void OptDeclarationList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Opt Declaration List> ";
 
-	//If empty, return
-	DeclarationList(v, iterator, linecount);
+	if (v[iterator].tokentype == "Qualifier")
+		DeclarationList(v, iterator, linecount);
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected qualifier at beginning of list";
+		return; ///break out
+	}
 }
 
 void DeclarationList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Declaration List> ";
 
-	//If finished declaration list, return
-	Declaration(v, iterator, linecount);
-	DeclarationList(v, iterator, linecount);
+	if (v[iterator + 1].tokentype == "Identifier" && v[iterator + 2].lexeme == ";" &&
+		v[iterator + 3].tokentype != "Qualifier")
+		Declaration(v, iterator, linecount);
+	else if (v[iterator + 1].tokentype == "Identifier" && v[iterator + 2].lexeme == ";" &&
+		v[iterator + 3].tokentype == "Qualifier")
+	{
+		iterator += 2;
+		DeclarationList(v, iterator, linecount);
+	}
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected a qualifier and identifier";
+		return; //break out
+	}
 }
 
 void Declaration(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 
 	Qualifier(v, iterator, linecount);
+	++iterator;
 	IDs(v, iterator, linecount);
+	
+	if (v[iterator].lexeme == "Endline")
+		++iterator;
+
+	if (v[iterator].lexeme == "{")
+	{
+		++iterator;
+		Body(v, iterator, linecount);
+	}
+	else
+	{
+		++iterator;
+		rat17f(v, iterator, linecount);
+	}
 }
 
 void IDs(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <IDs> ";
 
-	//if no more IDs, return;
-	Identifier(v, iterator, linecount);
-	IDs(v, iterator, linecount);
-}
+	if (v[iterator].tokentype == "Identifier" && v[iterator + 1].lexeme == ",")
+	{
+		cout << " <Identifier> ";
+		iterator += 2;
+		IDs(v, iterator, linecount);
+	}
 
-void Identifier(vector<Token> &v, int &iterator, int &linecount) {
-	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
-
-	//check if token is identifier
+	if (v[iterator].tokentype == "Identifier" && v[iterator + 1].lexeme != ",")
+	{
+		cout << " <Identifier> ";
+		++iterator;
+	}
+	
 }
 
 void StatementList(vector<Token> &v, int &iterator, int &linecount) {
@@ -320,13 +454,13 @@ void Factor(vector<Token> &v, int &iterator, int &linecount) {
 
 void Primary(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
-	
+
 	// For this function, checking the token should point us to which function to call
-	Identifier(v, iterator, linecount);
+	//Identifier(v, iterator, linecount);
 	// or
 	// token: integer
 	// or
-	Identifier(v, iterator, linecount);
+	//Identifier(v, iterator, linecount);
 	// [
 	IDs(v, iterator, linecount);
 	// ]
