@@ -322,6 +322,7 @@ void Statement(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Statement> ";
 	bool seenIF = false;
+	//bool seenWrite = false;
 
 	if (v[iterator].lexeme == "{")
 	{
@@ -352,8 +353,11 @@ void Statement(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "return")	
 		Return(v, iterator, linecount);
 
-	if (v[iterator].lexeme == "write")	
+	if (v[iterator].lexeme == "write")
+	{
+		//seenWrite = true;
 		Write(v, iterator, linecount);
+	}
 
 	if (v[iterator].lexeme == "read")	
 		Read(v, iterator, linecount);
@@ -451,21 +455,74 @@ void Return(vector<Token> &v, int &iterator, int &linecount) {
 
 void Write(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Write> ";
 
-	// keyword: write
-	// (
-	Expression(v, iterator, linecount);
-	// )
+	if (v[iterator + 1].lexeme == "(")
+	{
+		iterator += 2;
+		Expression(v, iterator, linecount);
+
+		if (v[iterator].lexeme != ")")
+		{
+			cout << "Error on line " << linecount << endl <<
+				"Expected a ) after expression";
+			exit(1);
+		}
+		else if (v[iterator].lexeme == ")" && v[iterator + 1].lexeme != ";")
+		{
+			cout << "Error on line " << linecount << endl <<
+				"Expected a ; after )";
+			exit(1);
+		}
+		else if (v[iterator].lexeme == ")" && v[iterator + 1].lexeme == ";")
+		{
+			iterator += 2;
+			Statement(v, iterator, linecount);
+		}
+	}
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected ( after write";
+		exit(1);
+	}
+	
 }
 
 void Read(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Read> ";
 
-	// keyword: read
-	// (
-	IDs(v, iterator, linecount);
-	// )
-	// ;
+	if (v[iterator + 1].lexeme == "(")
+	{
+		iterator += 2;
+		IDs(v, iterator, linecount);
+
+		if (v[iterator].lexeme != ")")
+		{
+			cout << "Error on line " << linecount << endl <<
+				"Expected a ) after identifiers";
+			exit(1);
+		}
+		else if (v[iterator].lexeme == ")" && v[iterator + 1].lexeme != ";")
+		{
+			cout << "Error on line " << linecount << endl <<
+				"Expected a ; after )";
+			exit(1);
+		}
+		else if (v[iterator].lexeme == ")" && v[iterator + 1].lexeme == ";")
+		{
+			iterator += 2;
+			Statement(v, iterator, linecount);
+		}
+		
+	}
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected ( after read";
+		exit(1);
+	}	
 }
 
 void While(vector<Token> &v, int &iterator, int &linecount) {
