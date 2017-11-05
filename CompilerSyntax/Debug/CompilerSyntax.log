@@ -1,12 +1,2 @@
-﻿  main.cpp
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\main.cpp(47): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\main.cpp(59): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(77): warning C4717: 'FunctionDefinitions': recursive on all control paths, function will cause runtime stack overflow
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(104): warning C4717: 'ParameterList': recursive on all control paths, function will cause runtime stack overflow
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(141): warning C4717: 'DeclarationList': recursive on all control paths, function will cause runtime stack overflow
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(156): warning C4717: 'IDs': recursive on all control paths, function will cause runtime stack overflow
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(170): warning C4717: 'StatementList': recursive on all control paths, function will cause runtime stack overflow
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(293): warning C4717: 'ExpressionPrime': recursive on all control paths, function will cause runtime stack overflow
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(310): warning C4717: 'TermPrime': recursive on all control paths, function will cause runtime stack overflow
-  CompilerSyntax.vcxproj -> C:\Users\Tyler\Documents\Visual Studio 2015\Projects\CompilerSyntax\Debug\CompilerSyntax.exe
+﻿  CompilerSyntax.vcxproj -> C:\Users\Tyler\Documents\Visual Studio 2015\Projects\CompilerSyntax\Debug\CompilerSyntax.exe
   CompilerSyntax.vcxproj -> C:\Users\Tyler\Documents\Visual Studio 2015\Projects\CompilerSyntax\Debug\CompilerSyntax.pdb (Full PDB)
