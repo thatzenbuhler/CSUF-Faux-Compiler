@@ -26,7 +26,7 @@ void OptDeclarationList(vector<Token> &, int &, int &);
 void DeclarationList(vector<Token> &, int &, int &);
 void Declaration(vector<Token> &, int &, int &);
 void IDs(vector<Token> &, int &, int &);
-void Identifier(vector<Token> &, int &, int &);
+//void Identifier(vector<Token> &, int &, int &);
 void StatementList(vector<Token> &, int &, int &);
 void Statement(vector<Token> &, int &, int &);
 void Compound(vector<Token> &, int &, int &);
@@ -283,7 +283,7 @@ void IDs(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].tokentype == "Identifier" && v[iterator + 1].lexeme == ",")
 	{
 		cout << " <Identifier> ";
-		identifier += 2;
+		iterator += 2;
 		IDs(v, iterator, linecount);
 	}
 
@@ -456,11 +456,11 @@ void Primary(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 
 	// For this function, checking the token should point us to which function to call
-	Identifier(v, iterator, linecount);
+	//Identifier(v, iterator, linecount);
 	// or
 	// token: integer
 	// or
-	Identifier(v, iterator, linecount);
+	//Identifier(v, iterator, linecount);
 	// [
 	IDs(v, iterator, linecount);
 	// ]
