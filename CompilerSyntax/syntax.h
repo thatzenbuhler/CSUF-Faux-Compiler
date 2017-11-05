@@ -233,6 +233,7 @@ void OptDeclarationList(vector<Token> &v, int &iterator, int &linecount) {
 	}
 }
 
+//needs work
 void DeclarationList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Declaration List> ";
@@ -295,47 +296,85 @@ void IDs(vector<Token> &v, int &iterator, int &linecount) {
 	
 }
 
+//need end of file indicator
 void StatementList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Statement List> ";
 
-	// if no more Statements, return
-	Statement(v, iterator, linecount);
-	StatementList(v, iterator, linecount);
+	if (v[iterator].lexeme == "{" | v[iterator].tokentype == "Identifier" | v[iterator].tokentype == "Keyword")
+		Statement(v, iterator, linecount);
+	else if (v[iterator].lexeme == "}")
+	{
+		++iterator;
+		StatementList(v, iterator, linecount);
+	}
+	else
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected a statement";
+		return; ///break out
+	}
+	//StatementList(v, iterator, linecount);
 }
 
+//needs error checking
 void Statement(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Statement> ";
 
-	// For this function, checking the token should point us to which of these functions to call. 
-	Compound(v, iterator, linecount);
-	// or
-	Assign(v, iterator, linecount);
-	// or
-	If(v, iterator, linecount);
-	// or
-	Return(v, iterator, linecount);
-	// or
-	Write(v, iterator, linecount);
-	// or
-	Read(v, iterator, linecount);
-	// or
-	While(v, iterator, linecount);
+	if (v[iterator].lexeme == "{")
+	{
+		cout << " { ";
+		++iterator;
+		Compound(v, iterator, linecount);
+	}
+	
+	if (v[iterator].tokentype == "Identifier")
+		Assign(v, iterator, linecount);
+
+	if (v[iterator].lexeme == "if")	
+		If(v, iterator, linecount);
+
+	if (v[iterator].lexeme == "return")	
+		Return(v, iterator, linecount);
+
+	if (v[iterator].lexeme == "write")	
+		Write(v, iterator, linecount);
+
+	if (v[iterator].lexeme == "read")	
+		Read(v, iterator, linecount);
+
+	if (v[iterator].lexeme == "while")	
+		While(v, iterator, linecount);
 
 }
 
 void Compound(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Compound> ";
+	
+	if (v[iterator].lexeme == "}")
+	{
+		cout << " } ";
+		++iterator;
+	}
 
-	// {
 	StatementList(v, iterator, linecount);
-	// }
+	
 }
 
 void Assign(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <Assign> ";
 
-	// identifier
-	// :=
+	if (v[iterator + 1].lexeme != ":=")
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected an assignment operator";
+		exit(1); //break out
+	}
+	
+	iterator += 2;
 	Expression(v, iterator, linecount);
 }
 
