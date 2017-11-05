@@ -260,7 +260,6 @@ void Declaration(vector<Token> &v, int &iterator, int &linecount) {
 	Qualifier(v, iterator, linecount);
 	++iterator;
 	IDs(v, iterator, linecount);
-	++iterator;
 	
 	if (v[iterator].lexeme == "Endline")
 		++iterator;
@@ -279,16 +278,21 @@ void Declaration(vector<Token> &v, int &iterator, int &linecount) {
 
 void IDs(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
+	cout << " <IDs> ";
 
-	//if no more IDs, return;
-	Identifier(v, iterator, linecount);
-	IDs(v, iterator, linecount);
-}
+	if (v[iterator].tokentype == "Identifier" && v[iterator + 1].lexeme == ",")
+	{
+		cout << " <Identifier> ";
+		identifier += 2;
+		IDs(v, iterator, linecount);
+	}
 
-void Identifier(vector<Token> &v, int &iterator, int &linecount) {
-	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
-
-	//check if token is identifier
+	if (v[iterator].tokentype == "Identifier" && v[iterator + 1].lexeme != ",")
+	{
+		cout << " <Identifier> ";
+		++iterator;
+	}
+	
 }
 
 void StatementList(vector<Token> &v, int &iterator, int &linecount) {
