@@ -20,7 +20,7 @@ void Function(vector<Token> &, int &, int &);
 void OptParameterList(vector<Token> &, int &, int &);
 void ParameterList(vector<Token> &, int &, int &);
 void Parameter(vector<Token> &, int &, int &);
-bool Qualifier(vector<Token> &, int &, int &);
+void Qualifier(vector<Token> &, int &, int &);
 void Body(vector<Token> &, int &, int &);
 void OptDeclarationList(vector<Token> &, int &, int &);
 void DeclarationList(vector<Token> &, int &, int &);
@@ -48,7 +48,7 @@ void Primary(vector<Token> &, int &, int &);
 bool syntax(vector<Token> &v) {
 	int iterator = 0;
 	int linecount = 1;
-	
+
 	rat17f(v, iterator, linecount);
 
 	return true; // Essentially, if the parse reaches this line there were no errors.
@@ -59,7 +59,7 @@ void rat17f(vector<Token> &v, int &iterator, int &linecount) {
 
 	if (v[iterator].lexeme == "@")
 		OptFunctionDefinitions(v, iterator, linecount);
-	
+
 	if (v[iterator].lexeme == "%%")
 	{
 		if (v[iterator + 1].lexeme != "Endline")
@@ -121,17 +121,17 @@ void Function(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator + 1].tokentype == "Identifier" && v[iterator].lexeme != ")")
 		OptParameterList(v, iterator, linecount);
 
-	if (v[iterator].lexeme == ")") 
+	if (v[iterator].lexeme == ")")
 	{
 		if ((v[iterator + 1].lexeme == "Endline" && v[iterator + 2].lexeme == "{") |
 			(v[iterator + 2].lexeme == "Endline" && v[iterator + 1].lexeme == "{"))
 			iterator += 2;
-			Body(v, iterator, linecount);
+		Body(v, iterator, linecount);
 
 		if (v[iterator + 2].tokentype == "Qualifier")
 			OptDeclarationList(v, iterator, linecount);
 	}
-	
+
 	else
 	{
 		cout << "Error on line " << linecount << endl <<
@@ -151,7 +151,8 @@ void OptParameterList(vector<Token> &v, int &iterator, int &linecount) {
 		cout << "Error on line " << linecount << endl <<
 			"Expected a : after " << v[iterator].lexeme;
 		return; ///break out
-	} else
+	}
+	else
 		ParameterList(v, iterator, linecount);
 }
 
@@ -159,7 +160,7 @@ void ParameterList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Parameter List> ";
 	iterator += 2;
-	
+
 	if (Qualifier(v, iterator, linecount))
 	{
 		if (v[iterator + 1].lexeme == ")")
@@ -176,7 +177,7 @@ void ParameterList(vector<Token> &v, int &iterator, int &linecount) {
 			iterator += 2;
 			ParameterList(v, iterator, linecount);
 		}
-			
+
 	}
 
 	else
@@ -214,7 +215,7 @@ void Body(vector<Token> &v, int &iterator, int &linecount) {
 	cout << " <Body> ";
 
 	StatementList(v, iterator, linecount);
-	
+
 	if (v[iterator].lexeme == "}")
 		rat17f(v, iterator, linecount);
 }
@@ -222,7 +223,7 @@ void Body(vector<Token> &v, int &iterator, int &linecount) {
 void OptDeclarationList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Opt Declaration List> ";
-	
+
 	if (Qualifier(v, iterator, linecount))
 		DeclarationList(v, iterator, linecount);
 	else
@@ -434,7 +435,7 @@ void Factor(vector<Token> &v, int &iterator, int &linecount) {
 
 void Primary(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
-	
+
 	// For this function, checking the token should point us to which function to call
 	Identifier(v, iterator, linecount);
 	// or
