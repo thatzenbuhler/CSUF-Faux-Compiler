@@ -15,7 +15,7 @@ int main() {
 	vector<Token> v;
 	fstream input;
 	string fileline;
-	Token endline("Endline", "");
+	Token endline("", "Endline");
 
 	cout << "Enter file to open: ";
 	cin >> filename;
@@ -41,13 +41,15 @@ int main() {
 	}
 	input.close();
 
+	
+
+	for (int i = 0; i < v.size(); i++)
+	{
+		v[i].print();
+	}
+
 	// Begins Syntax Analysis
 	syntax(v);
-
-	//for (int i = 0; i < v.size(); i++)
-	//{
-	//	v[i].print();
-	//}
 
 	ofstream outf("output.txt");
 	if (!outf)
@@ -56,11 +58,12 @@ int main() {
 		cerr << "Could not create output file" << endl;
 		exit(1);
 	}
+	/*
 	for (int i = 0; i < v.size(); i++)
 	{
 		outf << v[i].tokentype << " " << v[i].lexeme << endl;
 	}
-
+	*/
 	system("pause");
 	return 0;
 }
