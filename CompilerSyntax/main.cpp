@@ -58,11 +58,12 @@ int main() {
 		cerr << "Could not create output file" << endl;
 		exit(1);
 	}
+	/*
 	for (int i = 0; i < v.size(); i++)
 	{
 		outf << v[i].tokentype << " " << v[i].lexeme << endl;
 	}
-
+	*/
 	system("pause");
 	return 0;
 }

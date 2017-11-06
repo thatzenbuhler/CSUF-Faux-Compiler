@@ -55,14 +55,13 @@ bool syntax(vector<Token> &v) {
 }
 
 void rat17f(vector<Token> &v, int &iterator, int &linecount) {
+	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	if ((iterator - 1) == v.size())
 	{
 		cout << "You have reached end of file";
 		system("pause");
 		exit(0);
 	}
-
-	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 
 	if (v[iterator].lexeme == "@")
 		OptFunctionDefinitions(v, iterator, linecount);
@@ -284,7 +283,10 @@ void Body(vector<Token> &v, int &iterator, int &linecount) {
 	cout << " <Body> ";
 
 	if (v[iterator].lexeme == "}")
+	{
+		cout << " } ";
 		rat17f(v, iterator, linecount);
+	}
 
 	cout << " { ";
 	++iterator;
@@ -589,12 +591,12 @@ void Return(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline") { ++iterator; ++linecount; }
 	cout << " <Return> ";
 	++iterator;
-	cout << endl << v[iterator + 2].lexeme << endl;
+	//cout << endl << v[iterator + 3].lexeme << endl;
 	
 	if (((v[iterator].lexeme == "true") | (v[iterator].lexeme == "false"))
 		&& v[iterator + 1].lexeme == ";" && v[iterator + 2].lexeme == "}")
 	{
-		iterator += 2;
+		iterator += 3;
 		Body(v, iterator, linecount);
 	}
 	else if (((v[iterator].lexeme == "true") | (v[iterator].lexeme == "false"))
@@ -606,7 +608,7 @@ void Return(vector<Token> &v, int &iterator, int &linecount) {
 	}
 	else if (v[iterator + 1].lexeme == ";" && v[iterator + 3].lexeme == "}")
 	{
-		iterator += 2;
+		iterator += 3;
 		Body(v, iterator, linecount);
 	}
 	else if (v[iterator + 1].lexeme == ";" && v[iterator + 3].lexeme != "}")
