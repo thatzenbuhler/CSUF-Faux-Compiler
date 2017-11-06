@@ -50,6 +50,7 @@ int main() {
 
 	// Begins Syntax Analysis
 	syntax(v);
+	cout << "\nSyntax Analyis complete.\n";
 
 	ofstream outf("output.txt");
 	if (!outf)
