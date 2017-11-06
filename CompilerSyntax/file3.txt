@@ -13,6 +13,13 @@
 	return (a / b);
 }
 
+@max (x : integer, y : integer)
+{
+	if (x > y)
+	{ return x}
+	else
+	{return y} fi;
+
 %%
 	integer low, high, step#xy;
 

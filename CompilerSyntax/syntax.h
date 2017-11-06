@@ -110,10 +110,10 @@ void FunctionDefinitions(vector<Token> &v, int &iterator, int &linecount) {
 	else
 	{
 		cout << "Error on line " << linecount << endl <<
-			"Expected a ( after identifier";
+			"Expected a ( after identifier" << endl;
 		exit(1); ///break out
 	}
-	//FunctionDefinitions(v, iterator, linecount);
+	FunctionDefinitions(v, iterator, linecount);
 }
 
 void Function(vector<Token> &v, int &iterator, int &linecount) {
@@ -223,7 +223,7 @@ void Body(vector<Token> &v, int &iterator, int &linecount) {
 	cout << " <Body> " << endl;
 
 	if (v[iterator].lexeme == "}")
-		rat17f(v, iterator, linecount);
+		return;
 
 	StatementList(v, iterator, linecount);
 }
@@ -310,7 +310,7 @@ void StatementList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].tokentype == "Endline") { ++iterator; ++linecount; }
 	cout << " <Statement List> " << endl;
 
-	if (v[iterator].lexeme == "{" | v[iterator].tokentype == "Identifier" | v[iterator].tokentype == "Keyword")
+	if (v[iterator].lexeme == "{" || v[iterator].tokentype == "Identifier" || v[iterator].tokentype == "Keyword")
 		Statement(v, iterator, linecount);
 	else if (v[iterator].lexeme == "}")
 	{
@@ -454,13 +454,14 @@ void If(vector<Token> &v, int &iterator, int &linecount) {
 void Return(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].tokentype == "Endline") { ++iterator; ++linecount; }
 	cout << " <Return> " << endl;
+	iterator++;
 	
-	if (v[iterator + 1].lexeme == ";" && v[iterator + 2].lexeme == "}")
+	if (v[iterator].lexeme == ";" && v[iterator + 1].lexeme == "}")
 	{
 		iterator += 2;
 		Body(v, iterator, linecount);
 	}
-	else if (v[iterator + 1].lexeme == ";" && v[iterator + 2].lexeme != "}")
+	else if (v[iterator].lexeme == ";" && v[iterator + 1].lexeme != "}")
 	{
 		cout << "Error on line " << linecount << endl <<
 			"Expected a } after ;";
@@ -647,6 +648,7 @@ void TermPrime(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "*" || v[iterator].lexeme == "/")
 	{
 		iterator++;
+		//Factor(v, iterator, linecount);
 		return;
 	}
 	else
@@ -669,6 +671,7 @@ void Factor(vector<Token> &v, int &iterator, int &linecount) {
 void Primary(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].tokentype == "Endline") { ++iterator; ++linecount; }
 	cout << " <Primary> " << endl;
+	v[iterator].print();
 
 	if (v[iterator].tokentype == "Integer" || v[iterator].tokentype == "Real" || v[iterator].tokentype == "Identifier")
 	{

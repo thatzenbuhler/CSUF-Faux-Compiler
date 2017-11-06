@@ -70,6 +70,41 @@ Seperator ;
 Endline 
 Seperator }
 Endline 
+Operator @
+Identifier max
+Seperator (
+Identifier x
+Seperator :
+Qualifier integer
+Seperator ,
+Identifier y
+Seperator :
+Qualifier integer
+Seperator )
+Endline 
+Seperator {
+Endline 
+Keyword if
+Seperator (
+Identifier x
+Operator >
+Identifier y
+Seperator )
+Endline 
+Seperator {
+Keyword return
+Identifier x
+Seperator }
+Endline 
+Keyword else
+Endline 
+Seperator {
+Keyword return
+Identifier y
+Seperator }
+Keyword fi
+Seperator ;
+Endline 
 Operator %%
 Endline 
 Qualifier integer
