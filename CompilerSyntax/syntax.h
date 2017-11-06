@@ -57,7 +57,7 @@ void rat17f(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -84,7 +84,7 @@ void OptFunctionDefinitions(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -97,7 +97,7 @@ void FunctionDefinitions(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -113,7 +113,7 @@ void Function(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -135,7 +135,7 @@ void OptParameterList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -150,7 +150,7 @@ void ParameterList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -167,7 +167,7 @@ void Parameter(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -182,7 +182,7 @@ void Qualifier(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -196,7 +196,7 @@ void Body(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -213,7 +213,7 @@ void OptDeclarationList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -229,7 +229,7 @@ void DeclarationList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -248,7 +248,7 @@ void Declaration(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -262,7 +262,7 @@ void IDs(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -286,7 +286,7 @@ void StatementList(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -301,7 +301,7 @@ void Statement(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -327,13 +327,15 @@ void Statement(vector<Token> &v, int &iterator, int &linecount) {
 
 	else if (v[iterator].lexeme == "while")	
 		While(v, iterator, linecount);
+	else { cout << "Error on line " << linecount << ", unknown type" << endl; exit(1); }
+
 }
 
 void Compound(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -359,13 +361,15 @@ void Assign(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].tokentype == "Identifier") iterator++;
 	if (v[iterator].lexeme == ":=") iterator++;
 	Expression(v, iterator, linecount);
+	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) iterator++;
+	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 }
 
 void If(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -383,8 +387,10 @@ void If(vector<Token> &v, int &iterator, int &linecount) {
 		if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 		Statement(v, iterator, linecount);
 		if (v[iterator].lexeme == "fi") iterator++;
+		if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) iterator++;
 		if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	}
+	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) iterator++;
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	
 	
@@ -394,7 +400,7 @@ void Return(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -416,7 +422,7 @@ void Write(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator - 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -435,7 +441,7 @@ void Read(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator - 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -453,7 +459,7 @@ void While(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -473,7 +479,7 @@ void Condition(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -488,7 +494,7 @@ void Relop(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -506,7 +512,7 @@ void Expression(vector<Token> &v, int &iterator, int &linecount) { // LEFT RECUR
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -520,7 +526,7 @@ void ExpressionPrime(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -531,14 +537,14 @@ void ExpressionPrime(vector<Token> &v, int &iterator, int &linecount) {
 		iterator++;
 		Term(v, iterator, linecount);
 	}
-
+	Term(v, iterator, linecount);
 }
 
 void Term(vector<Token> &v, int &iterator, int &linecount) { // LEFT RECURSION, attempted removal
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -552,7 +558,7 @@ void TermPrime(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -569,7 +575,7 @@ void Factor(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
@@ -585,12 +591,13 @@ void Primary(vector<Token> &v, int &iterator, int &linecount) {
 	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
 	if ((iterator + 1) == v.size())
 	{
-		cout << "You have reached end of file\n";
+		cout << "\nYou have reached end of file\n";
 		system("pause");
 		exit(0);
 	}
 	cout << " <Primary> ";
-
+	if (v[iterator].lexeme == "{")
+		Compound(v, iterator, linecount);
 	if (v[iterator].tokentype == "Integer" || v[iterator].tokentype == "Real" || v[iterator].tokentype == "Identifier")
 	{
 		iterator++;

@@ -16,10 +16,10 @@
 @max (x : integer, y : integer)
 {
 	if (x > y)
-	{ return x}
+	 return x;
 	else
-	{return y} fi;
-
+	return y fi;
+}
 %%
 	integer low, high, step#xy;
 
@@ -29,5 +29,5 @@
 	  write (convert[low]);
 	  low := low + step#xy;
 	}
-	write(multipy(low, high));
+	write(multiply(low, high));
 	write(divide(high, low));
