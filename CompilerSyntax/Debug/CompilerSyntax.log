@@ -1,2 +1,9 @@
-﻿  CompilerSyntax.vcxproj -> C:\Users\Tyler\Documents\Visual Studio 2015\Projects\CompilerSyntax\Debug\CompilerSyntax.exe
+﻿  main.cpp
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(404): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(409): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(429): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(448): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(467): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\main.cpp(46): warning C4018: '<': signed/unsigned mismatch
+  CompilerSyntax.vcxproj -> C:\Users\Tyler\Documents\Visual Studio 2015\Projects\CompilerSyntax\Debug\CompilerSyntax.exe
   CompilerSyntax.vcxproj -> C:\Users\Tyler\Documents\Visual Studio 2015\Projects\CompilerSyntax\Debug\CompilerSyntax.pdb (Full PDB)

@@ -1,8 +1,5 @@
 %%
-floating one;
-integer extra#x;
-re#al := 123.4
-real := .34
+integer one, extra#x;
 
 read(one, extra#x);
 write(one);
