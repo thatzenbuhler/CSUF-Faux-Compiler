@@ -578,6 +578,13 @@ void Return(vector<Token> &v, int &iterator, int &linecount) {
 	++iterator;
 	//cout << endl << v[iterator + 3].lexeme << endl;
 	
+	if (v[iterator].lexeme == ";")
+	{
+		cout << "Error on line " << linecount << endl <<
+			"Expected a return value";
+		//exit(0);
+		return; //break out
+	}
 	if (((v[iterator].lexeme == "true") | (v[iterator].lexeme == "false"))
 		&& v[iterator + 1].lexeme == ";" && v[iterator + 2].lexeme == "}")
 	{
