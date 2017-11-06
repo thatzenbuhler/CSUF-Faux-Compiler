@@ -1,181 +1,38 @@
-Operator @
-Identifier convert
-Seperator (
-Identifier fahr
-Seperator :
-Qualifier integer
-Seperator )
-Endline 
-Seperator {
-Endline 
-Keyword return
-Integer 5
-Operator *
-Seperator (
-Identifier fahr
-Operator -
-Integer 32
-Seperator )
-Operator /
-Integer 9
-Seperator ;
-Endline 
-Seperator }
-Endline 
-Operator @
-Identifier multiply
-Seperator (
-Identifier a
-Seperator :
-Qualifier integer
-Seperator ,
-Identifier b
-Seperator :
-Qualifier integer
-Seperator )
-Endline 
-Seperator {
-Endline 
-Keyword return
-Seperator (
-Identifier a
-Operator *
-Identifier b
-Seperator )
-Seperator ;
-Endline 
-Seperator }
-Endline 
-Operator @
-Identifier divide
-Seperator (
-Identifier a
-Seperator :
-Qualifier integer
-Seperator ,
-Identifier b
-Seperator :
-Qualifier integer
-Seperator )
-Endline 
-Seperator {
-Endline 
-Keyword return
-Seperator (
-Identifier a
-Operator /
-Identifier b
-Seperator )
-Seperator ;
-Endline 
-Seperator }
-Endline 
-Operator @
-Identifier max
-Seperator (
-Identifier x
-Seperator :
-Qualifier integer
-Seperator ,
-Identifier y
-Seperator :
-Qualifier integer
-Seperator )
-Endline 
-Seperator {
-Endline 
-Keyword if
-Seperator (
-Identifier x
-Operator >
-Identifier y
-Seperator )
-Endline 
-Seperator {
-Keyword return
-Identifier x
-Seperator }
-Endline 
-Keyword else
-Endline 
-Seperator {
-Keyword return
-Identifier y
-Seperator }
-Keyword fi
-Seperator ;
-Endline 
 Operator %%
 Endline 
-Qualifier integer
-Identifier low
-Seperator ,
-Identifier high
-Seperator ,
-Identifier step#xy
+Keyword floating
+Identifier one
 Seperator ;
+Endline 
+Qualifier integer
+Identifier extra#x
+Seperator ;
+Endline 
+Identifier re#al
+Operator :=
+Real 123.4
+Endline 
+Qualifier real
+Operator :=
+Real .34
 Endline 
 Keyword read
 Seperator (
-Identifier low
+Identifier one
 Seperator ,
-Identifier high
-Seperator ,
-Identifier step#xy
-Seperator )
-Seperator ;
-Endline 
-Keyword while
-Seperator (
-Identifier low
-Operator <
-Identifier high
-Seperator )
-Endline 
-Seperator {
-Keyword write
-Seperator (
-Identifier low
+Identifier extra#x
 Seperator )
 Seperator ;
 Endline 
 Keyword write
 Seperator (
-Identifier convert
-Seperator [
-Identifier low
-Seperator ]
-Seperator )
-Seperator ;
-Endline 
-Identifier low
-Operator :=
-Identifier low
-Operator +
-Identifier step#xy
-Seperator ;
-Endline 
-Seperator }
-Endline 
-Keyword write
-Seperator (
-Identifier multipy
-Seperator (
-Identifier low
-Seperator ,
-Identifier high
-Seperator )
+Identifier one
 Seperator )
 Seperator ;
 Endline 
 Keyword write
 Seperator (
-Identifier divide
-Seperator (
-Identifier high
-Seperator ,
-Identifier low
-Seperator )
+Identifier extra#x
 Seperator )
 Seperator ;
 Endline 

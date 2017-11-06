@@ -373,6 +373,10 @@ void Statement(vector<Token> &v, int &iterator, int &linecount) {
 
 	if (v[iterator].lexeme == "while")	
 		While(v, iterator, linecount);
+	else
+	{
+		cout << "Error on line " << linecount << ", token not detected as statement." << endl;
+	}
 
 }
 
