@@ -21,7 +21,7 @@
 	return y fi;
 }
 %%
-	integer low, high, step#xy;
+	integer low, high, step#xy, result;
 
 	read(low, high, step#xy);
 	while(low < high)
@@ -29,5 +29,7 @@
 	  write (convert[low]);
 	  low := low + step#xy;
 	}
-	write(multiply(low, high));
-	write(divide(high, low));
+	result := multiply(low, high);
+	write(result);
+	result := divide(high, low);
+	write(result);
