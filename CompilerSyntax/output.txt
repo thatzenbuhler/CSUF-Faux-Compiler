@@ -1,38 +1,64 @@
-Operator %%
-Endline 
-Keyword floating
-Identifier one
-Seperator ;
-Endline 
+Operator @
+Identifier convert
+Seperator (
+Identifier fahr
+Seperator :
 Qualifier integer
-Identifier extra#x
+Seperator )
+Seperator {
+Keyword return
+Integer 5
+Operator *
+Seperator (
+Identifier fahr
+Operator -
+Integer 32
+Seperator )
+Operator /
+Integer 9
 Seperator ;
-Endline 
-Identifier re#al
-Operator :=
-Real 123.4
-Endline 
-Qualifier real
-Operator :=
-Real .34
-Endline 
+Seperator }
+Operator %%
+Qualifier integer
+Identifier low
+Seperator ,
+Identifier high
+Seperator ,
+Identifier step#xy
+Seperator ;
 Keyword read
 Seperator (
-Identifier one
+Identifier low
 Seperator ,
-Identifier extra#x
+Identifier high
+Seperator ,
+Identifier step#xy
 Seperator )
 Seperator ;
-Endline 
+Keyword while
+Seperator (
+Identifier low
+Operator <
+Identifier high
+Seperator )
+Seperator {
 Keyword write
 Seperator (
-Identifier one
+Identifier low
 Seperator )
 Seperator ;
-Endline 
 Keyword write
 Seperator (
-Identifier extra#x
+Identifier convert
+Seperator [
+Identifier low
+Seperator ]
 Seperator )
 Seperator ;
-Endline 
+Identifier low
+Operator :=
+Identifier low
+Operator +
+Identifier step#xy
+Seperator ;
+Seperator }
