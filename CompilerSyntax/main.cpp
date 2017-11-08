@@ -41,13 +41,6 @@ int main() {
 	}
 	input.close();
 
-	
-
-	for (int i = 0; i < v.size(); i++)
-	{
-		v[i].print();
-	}
-
 	// Begins Syntax Analysis
 	syntax(v);
 	cout << "\nSyntax Analyis complete.\n";

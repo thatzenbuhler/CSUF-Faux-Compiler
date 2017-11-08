@@ -15,6 +15,7 @@
 #define ARGS_CALL v, iterator, linecount, endfile
 #define ENDLINE_CHECK if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; if(endfile) return;}
 #define ENDFILE_CHECK if ((iterator + 1) == v.size()){endfile = true; return;}
+#define PRINTTOKEN cout << endl; v[iterator].print(); cout << endl;
 
 // The parser begins at the top function and is best understood reading from the top down.
 // Each function needs token checking, iterator management, printing current token and path directions, and error checking.
@@ -64,15 +65,15 @@ bool syntax(vector<Token> &v) {
 void rat17f(ARGS) {
 	ENDLINE_CHECK
 	ENDFILE_CHECK
-	cout << iterator << " " << v.size() << endl;
 
 	if (v[iterator].lexeme == "@")
 	{
-		v[iterator].print();
+		PRINTTOKEN
 		OptFunctionDefinitions(ARGS_CALL);
 	}
 
 	if (v[iterator].lexeme == "%%") {
+		PRINTTOKEN
 		iterator++;
 		ENDLINE_CHECK
 		OptDeclarationList(ARGS_CALL);
@@ -106,14 +107,14 @@ void Function(ARGS) {
 	ENDFILE_CHECK
 	cout << " <Function> ";
 	
-	if (v[iterator].tokentype == "Identifier") iterator++;
+	if (v[iterator].tokentype == "Identifier") { PRINTTOKEN iterator++; }
 	else cout << "Error on line " << linecount << ", expected identifier" << endl;
-	if (v[iterator].lexeme == "(") iterator++;
+	if (v[iterator].lexeme == "(") { PRINTTOKEN iterator++; }
 	else cout << "Error on line " << linecount << ", expected (" << endl;
 	OptParameterList(ARGS_CALL);
-	if (v[iterator].lexeme == ")") iterator++;
+	if (v[iterator].lexeme == ")") { PRINTTOKEN iterator++; }
 	else cout << "Error on line " << linecount << ", expected )" << endl;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	ENDLINE_CHECK
 	OptDeclarationList(ARGS_CALL);
 	Body(ARGS_CALL);
 }
@@ -135,7 +136,7 @@ void ParameterList(ARGS) {
 	if (v[iterator].lexeme != ")")
 	{
 		Parameter(ARGS_CALL);
-		if (v[iterator].lexeme == ",") iterator++;
+		if (v[iterator].lexeme == ",") { PRINTTOKEN iterator++; }
 		ParameterList(ARGS_CALL);
 	}
 }
@@ -146,7 +147,7 @@ void Parameter(ARGS) {
 	cout << " <Parameter> ";
 
 	IDs(ARGS_CALL);
-	if (v[iterator].lexeme == ":") iterator++;
+	if (v[iterator].lexeme == ":") { PRINTTOKEN iterator++; }
 	Qualifier(ARGS_CALL);
 }
 
@@ -156,7 +157,9 @@ void Qualifier(ARGS) {
 	cout << " <Qualifier> ";
 
 	if (v[iterator].tokentype == "Qualifier")
-		iterator++;
+	{
+		PRINTTOKEN iterator++;
+	}
 }
 
 void Body(ARGS) {
@@ -164,11 +167,11 @@ void Body(ARGS) {
 	ENDFILE_CHECK
 	cout << " <Body> ";
 
-	if (v[iterator].lexeme == "{") iterator++;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	if (v[iterator].lexeme == "{") { PRINTTOKEN iterator++; }
+	ENDLINE_CHECK
 	StatementList(ARGS_CALL);
-	if (v[iterator].lexeme == "}") iterator++;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	if (v[iterator].lexeme == "}") { PRINTTOKEN iterator++; }
+	ENDLINE_CHECK
 }
 
 void OptDeclarationList(ARGS) {
@@ -191,8 +194,8 @@ void DeclarationList(ARGS) {
 	if (v[iterator].lexeme != "{")
 	{
 		Declaration(ARGS_CALL);
-		if (v[iterator].lexeme == ";") iterator++;
-		if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+		if (v[iterator].lexeme == ";") { PRINTTOKEN iterator++; }
+		ENDLINE_CHECK
 		if (v[iterator].lexeme != "Qualifier") return;
 		DeclarationList(ARGS_CALL);
 	}
@@ -212,9 +215,10 @@ void IDs(ARGS) {
 	ENDFILE_CHECK
 	cout << " <IDs> ";
 
-	if (v[iterator].tokentype == "Identifier") iterator++;
+	if (v[iterator].tokentype == "Identifier") { PRINTTOKEN iterator++; }
 	if (v[iterator].lexeme == ",")
 	{
+		PRINTTOKEN 
 		iterator++;
 		IDs(ARGS_CALL);
 	}
@@ -264,11 +268,11 @@ void Compound(ARGS) {
 	ENDFILE_CHECK
 	cout << " <Compound> ";
 
-	if (v[iterator].lexeme == "{") iterator++;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	if (v[iterator].lexeme == "{") { PRINTTOKEN iterator++; }
+	ENDLINE_CHECK
 	StatementList(ARGS_CALL);
-	if (v[iterator].lexeme == "}") iterator++;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	if (v[iterator].lexeme == "}") { PRINTTOKEN iterator++; }
+	ENDLINE_CHECK
 }
 
 void Assign(ARGS) {
@@ -276,11 +280,11 @@ void Assign(ARGS) {
 	ENDFILE_CHECK
 	cout << " <Assign> ";
 
-	if (v[iterator].tokentype == "Identifier") iterator++;
-	if (v[iterator].lexeme == ":=") iterator++;
+	if (v[iterator].tokentype == "Identifier") { PRINTTOKEN iterator++; }
+	if (v[iterator].lexeme == ":=") { PRINTTOKEN iterator++; }
 	Expression(ARGS_CALL);
-	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) iterator++;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
+	ENDLINE_CHECK;
 }
 
 void If(ARGS) {
@@ -288,24 +292,25 @@ void If(ARGS) {
 	ENDFILE_CHECK
 	cout << " <If> ";
 
-	if (v[iterator].lexeme == "if") iterator++;
-	if (v[iterator].lexeme == "(") iterator++;
+	if (v[iterator].lexeme == "if") { PRINTTOKEN iterator++; }
+	if (v[iterator].lexeme == "(") { PRINTTOKEN iterator++; }
 	Condition(ARGS_CALL);
-	if (v[iterator].lexeme == ")") iterator++;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	if (v[iterator].lexeme == ")") { PRINTTOKEN iterator++; }
+	ENDLINE_CHECK
 	Statement(ARGS_CALL);
-	if (v[iterator].lexeme == "fi") ++iterator;
+	if (v[iterator].lexeme == "fi") { PRINTTOKEN iterator++; }
 	else if (v[iterator].lexeme == "else")
 	{
+		PRINTTOKEN 
 		iterator++;
-		if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+		ENDLINE_CHECK
 		Statement(ARGS_CALL);
-		if (v[iterator].lexeme == "fi") iterator++;
-		if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) iterator++;
-		if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+		if (v[iterator].lexeme == "fi") { PRINTTOKEN iterator++; }
+		if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
+		ENDLINE_CHECK
 	}
-	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) iterator++;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
+	ENDLINE_CHECK
 }
 
 void Return(ARGS) {
@@ -313,14 +318,14 @@ void Return(ARGS) {
 	ENDFILE_CHECK
 	cout << " <Return> ";
 	
-	if (v[iterator].lexeme == "return") iterator++;
-	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) iterator++;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	if (v[iterator].lexeme == "return") { PRINTTOKEN iterator++; }
+	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
+	ENDLINE_CHECK
 	else
 	{
 		Expression(ARGS_CALL);
-		if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) iterator++;
-		if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+		if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
+		ENDLINE_CHECK
 	}
 }
 
@@ -329,12 +334,12 @@ void Write(ARGS) {
 	ENDFILE_CHECK
 	cout << " <Write> ";
 
-	if (v[iterator].lexeme == "write") iterator++;
-	if (v[iterator].lexeme == "(") iterator++;
+	if (v[iterator].lexeme == "write") { PRINTTOKEN iterator++; }
+	if (v[iterator].lexeme == "(") { PRINTTOKEN iterator++; }
 	Expression(ARGS_CALL);
-	if (v[iterator].lexeme == ")") iterator++;
-	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) iterator++;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	if (v[iterator].lexeme == ")") { PRINTTOKEN iterator++; }
+	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
+	ENDLINE_CHECK
 }
 
 void Read(ARGS) {
@@ -342,12 +347,12 @@ void Read(ARGS) {
 	ENDFILE_CHECK
 	cout << " <Read> ";
 
-	if (v[iterator].lexeme == "read") iterator++;
-	if (v[iterator].lexeme == "(") iterator++;
+	if (v[iterator].lexeme == "read") { PRINTTOKEN iterator++; }
+	if (v[iterator].lexeme == "(") { PRINTTOKEN iterator++; }
 	IDs(ARGS_CALL);
-	if (v[iterator].lexeme == ")") iterator++;
-	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) iterator++;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	if (v[iterator].lexeme == ")") { PRINTTOKEN iterator++; }
+	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
+	ENDLINE_CHECK
 }
 
 void While(ARGS) {
@@ -355,13 +360,13 @@ void While(ARGS) {
 	ENDFILE_CHECK
 	cout << " <While> ";
 
-	if (v[iterator].lexeme == "while") iterator++;
-	if (v[iterator].lexeme == "(") iterator++;
+	if (v[iterator].lexeme == "while") { PRINTTOKEN iterator++; }
+	if (v[iterator].lexeme == "(") { PRINTTOKEN iterator++; }
 	Condition(ARGS_CALL);
-	if (v[iterator].lexeme == ")") iterator++;
+	if (v[iterator].lexeme == ")") { PRINTTOKEN iterator++; }
 	Statement(ARGS_CALL);
-	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) iterator++;
-	if (v[iterator].lexeme == "Endline" && (iterator + 1) != v.size()) { ++iterator; ++linecount; }
+	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
+	ENDLINE_CHECK
 }
 
 void Condition(ARGS) {
@@ -381,6 +386,7 @@ void Relop(ARGS) {
 
 	if (v[iterator].lexeme == "=" | v[iterator].lexeme == "/=" || v[iterator].lexeme == ">" || v[iterator].lexeme == "<" || v[iterator].lexeme == "=>" || v[iterator].lexeme == "<=")
 	{
+		PRINTTOKEN
 		iterator++;
 		return;
 	}
@@ -401,8 +407,10 @@ void ExpressionPrime(ARGS) {
 	ENDFILE_CHECK
 	cout << " <Expression Prime> ";
 
+	
 	if (v[iterator].lexeme == "+" || v[iterator].lexeme == "-")
 	{
+		PRINTTOKEN
 		iterator++;
 		Term(ARGS_CALL);
 		ExpressionPrime(ARGS_CALL);
@@ -425,10 +433,13 @@ void TermPrime(ARGS) {
 
 	if (v[iterator].lexeme == "*" || v[iterator].lexeme == "/")
 	{
+		PRINTTOKEN
 		iterator++;
 		Factor(ARGS_CALL);
 		TermPrime(ARGS_CALL);
 	}
+	else if (v[iterator].lexeme == "(")
+		Expression(ARGS_CALL);
 }
 
 void Factor(ARGS) {
@@ -436,8 +447,7 @@ void Factor(ARGS) {
 	ENDFILE_CHECK
 	cout << " <Factor> ";
 
-	if (v[iterator].lexeme == "-")
-		iterator++;
+	if (v[iterator].lexeme == "-") { PRINTTOKEN iterator++; }
 	Primary(ARGS_CALL);
 }
 
@@ -450,20 +460,24 @@ void Primary(ARGS) {
 		Compound(ARGS_CALL);
 	if (v[iterator].tokentype == "Integer" || v[iterator].tokentype == "Real")
 	{
+		PRINTTOKEN
 		iterator++;
 		return;
 	}
 	if (v[iterator].lexeme == "true" || v[iterator].lexeme == "false")
 	{
+		PRINTTOKEN
 		iterator++;
 		return;
 	}
 	if (v[iterator].lexeme == "(")
 	{
+		PRINTTOKEN
 		iterator++;
 		Expression(ARGS_CALL);
 		if (v[iterator].lexeme == ")")
 		{
+			PRINTTOKEN
 			iterator++;
 			return;
 		}
@@ -474,10 +488,12 @@ void Primary(ARGS) {
 		}
 	}
 	if (v[iterator].tokentype == "Identifier" && v[iterator + 1].lexeme == "[") {
-		iterator += 2;
+		PRINTTOKEN iterator++;
+		PRINTTOKEN iterator++;
 		IDs(ARGS_CALL);
 		if (v[iterator].lexeme == "]")
 		{
+			PRINTTOKEN
 			iterator++;
 			return;
 		}
