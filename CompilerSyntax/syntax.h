@@ -260,7 +260,7 @@ void Statement(ARGS) {
 
 	else if (v[iterator].lexeme == "while")	
 		While(ARGS_CALL);
-	else { cout << "Error on line " << linecount << ", unknown type" << endl; exit(1); }
+	else { cout << "Error on line " << linecount << ", statement error" << endl; exit(1); }
 }
 
 void Compound(ARGS) {
@@ -509,4 +509,5 @@ void Primary(ARGS) {
 		return;
 	}
 	cout << endl << "Error on line " << linecount << ", expected primary" << endl;
+	exit(1);
 }
