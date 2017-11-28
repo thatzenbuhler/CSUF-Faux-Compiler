@@ -149,6 +149,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="assembly.h" />
     <ClInclude Include="lexer.h" />
     <ClInclude Include="syntax.h" />
   </ItemGroup>
