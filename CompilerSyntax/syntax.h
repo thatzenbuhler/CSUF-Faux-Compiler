@@ -8,6 +8,7 @@
 #include<fstream>
 #include<cstdlib>
 #include<vector>
+#include"assembly.h"
 
 // These compiler directives handle extremely repetitive code and allow easier reading
 #define ARGS vector<Token> &v, int &iterator, int &linecount, bool &endfile
