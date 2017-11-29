@@ -1,3 +1,0 @@
-%%
-	write(multiply(low, high));
-	write(divide(high, low))

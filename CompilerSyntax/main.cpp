@@ -6,6 +6,7 @@
 #include<iostream>
 #include"lexer.h"
 #include"syntax.h"
+#include"assembly.h"
 
 using namespace std;
 
@@ -53,11 +54,8 @@ int main() {
 		exit(1);
 	}
 	
-	for (int i = 0; i < v.size(); i++)
-	{
-		if (v[i].lexeme != "Endline") { outf << v[i].tokentype << " " << v[i].lexeme << endl; }
-	}
-	
+	// Output Instruction Vector to outf //
+
 	system("pause");
 	return 0;
 }
