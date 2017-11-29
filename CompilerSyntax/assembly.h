@@ -10,7 +10,7 @@
 	assembly code. Back patch function is used for JUMP / loop bases instructions.
 */
 
-int memory_address = 10000; // Global staring address variable
+int memory_address = 10000; // Global starting address variable
 
 class Symbol { // One instance of symbol, collected in vector;
 public:
