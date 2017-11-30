@@ -70,12 +70,16 @@ void printST() { // Prints all stored symbols in symbol table
 	}
 }
 
+/*
+Potentially add a printIT function instead of printST
+*/
+
 void add_symbol(string ins, int mem, string t) { // Adds identifier to vector
 	Symbol input(ins, mem, t);
 	SymbolTable.push_back(input);
 }
 
-void gen_instr(string ins, int mem) { // Places an instruction into the vector
+void add_instr(string ins, int mem) { // Places an instruction into the vector
 	Instr input(ins, mem);
 	InstrTable.push_back(input);
 }
