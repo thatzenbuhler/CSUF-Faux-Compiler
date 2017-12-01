@@ -3,11 +3,6 @@
 // This header file includes the Lexical Analyzer part of the program, as coded in Assignment 1.
 // Tyler Hatzenbuhler
 // Anette Ulrichsen
-#include<iostream>
-#include<string>
-#include<fstream>
-#include<cstdlib>
-#include<vector>
 
 using namespace std;
 

@@ -3,11 +3,6 @@
 // This header file includes the Syntax Analyzer part of the program, as coded in Assignment 2.
 // Tyler Hatzenbuhler
 // Anette Ulrichsen
-#include<iostream>
-#include<string>
-#include<fstream>
-#include<cstdlib>
-#include<vector>
 #include"assembly.h"
 
 // These compiler directives handle extremely repetitive code and allow easier reading
@@ -35,6 +30,7 @@ void OptDeclarationList(ARGSD);
 void DeclarationList(ARGSD);
 void Declaration(ARGSD);
 void IDs(ARGSD);
+void dIDs(ARGSD);
 void StatementList(ARGSD);
 void Statement(ARGSD);
 void Compound(ARGSD);
@@ -208,7 +204,21 @@ void Declaration(ARGS) {
 	cout << " <Declaration> ";
 	
 	Qualifier(ARGS_CALL);
-	IDs(ARGS_CALL);
+	dIDs(ARGS_CALL);
+}
+
+void dIDs(ARGS) {
+	ENDLINE_CHECK
+		ENDFILE_CHECK
+		cout << " <IDs> ";
+
+	if (v[iterator].tokentype == "Identifier") { PRINTTOKEN iterator++; }
+	if (v[iterator].lexeme == ",")
+	{
+		PRINTTOKEN
+			iterator++;
+		IDs(ARGS_CALL);
+	}
 }
 
 void IDs(ARGS) {
@@ -336,7 +346,7 @@ void Write(ARGS) {
 	cout << " <Write> ";
 
 	if (v[iterator].lexeme == "write") { PRINTTOKEN iterator++; }
-	if (v[iterator].lexeme == "(") { PRINTTOKEN iterator++; }
+	if (v[iterator].lexeme == "(") { PRINTTOKEN iterator++; } 
 	Expression(ARGS_CALL);
 	if (v[iterator].lexeme == ")") { PRINTTOKEN iterator++; }
 	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
