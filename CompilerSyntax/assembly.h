@@ -46,6 +46,7 @@ public:
 
 vector<Symbol> SymbolTable; // Global Symbol Table
 vector<Instr> InstrTable; // Global Instruction Table
+stack<int> jumpstack; // Stack for back patching jump instructions
 
 int get_address(string x) { // Checks symbol table for given id and returns address
 	if (SymbolTable.size() == 0) {
@@ -70,9 +71,17 @@ void printST() { // Prints all stored symbols in symbol table
 	}
 }
 
-/*
-Potentially add a printIT function instead of printST
-*/
+void printIT() { // Prints all stored instructions in instr table
+	if (InstrTable.size() == 0) return;
+	cout << "--------- Instruction Table ---------" << endl;
+	for (int i = 0; i < InstrTable.size(); i++) {
+		cout << i + 1 << "\t" << InstrTable[i].Op << "\t";
+		if (InstrTable[i].operand == -1)
+			cout << "nil" << endl;
+		else
+			cout << InstrTable[i].operand << endl;
+	}
+}
 
 void add_symbol(string ins, int mem, string t) { // Adds identifier to vector
 	Symbol input(ins, mem, t);
@@ -84,8 +93,8 @@ void add_instr(string ins, int mem) { // Places an instruction into the vector
 	InstrTable.push_back(input);
 }
 
-void back_patch(int jump_addr) {
-	// todo
+void back_patch() { // Patches jump instructions after statement completes
+	int patch = jumpstack.top();
+	jumpstack.pop();
+	InstrTable[patch].operand = InstrTable.size() - 1;
 }
-
-// potentially more functions needed regarding jumps / backpatch

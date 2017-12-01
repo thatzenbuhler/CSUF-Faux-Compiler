@@ -4,6 +4,12 @@
 // Tyler Hatzenbuhler
 // Anette Ulrichsen
 #include<iostream>
+#include<string>
+#include<fstream>
+#include<cstdlib>
+#include<vector>
+#include<stack>
+
 #include"lexer.h"
 #include"syntax.h"
 #include"assembly.h"
@@ -46,6 +52,8 @@ int main() {
 	syntax(v);
 	cout << "\nSyntax Analyis complete.\n";
 
+	printIT();
+
 	ofstream outf("output.txt");
 	if (!outf)
 	{
@@ -55,6 +63,7 @@ int main() {
 	}
 	
 	// Output Instruction Vector to outf //
+	outf << "TO ADD: INSTRUCTION TABLE" << endl;
 
 	system("pause");
 	return 0;
