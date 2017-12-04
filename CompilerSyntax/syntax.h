@@ -145,7 +145,7 @@ void Parameter(ARGS) {
 	ENDFILE_CHECK
 	cout << " <Parameter> ";
 
-	IDs(ARGS_CALL);
+	dIDs(ARGS_CALL);
 	if (v[iterator].lexeme == ":") { PRINTTOKEN iterator++; }
 	Qualifier(ARGS_CALL);
 }

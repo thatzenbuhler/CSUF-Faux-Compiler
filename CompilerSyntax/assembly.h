@@ -67,9 +67,9 @@ int get_address(string x) { // Checks symbol table for given id and returns addr
 
 void printST() { // Prints all stored symbols in symbol table
 	if (SymbolTable.size() == 0) return;
-	cout << "--------- Symbol Table ---------" << endl;
+	cout << "----------- Symbol Table -----------" << endl;
 	for (int i = 0; i < SymbolTable.size(); i++) {
-		cout << "Identifier: " << SymbolTable[i].identifier << "   Mem Location: " << SymbolTable[i].memLocation << "   Type: " << SymbolTable[i].type << endl;
+		cout << "Id: " << SymbolTable[i].identifier << "\t\tAddress: " << SymbolTable[i].memLocation << "\t\tType: " << SymbolTable[i].type << endl;
 	}
 }
 
