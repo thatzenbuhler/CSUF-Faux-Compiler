@@ -53,6 +53,7 @@ stack<int> jumpstack; // Stack for back patching jump instructions
 int get_address(string x) { // Checks symbol table for given id and returns address
 	if (SymbolTable.size() == 0) {
 		cout << "Error: table empty" << endl;
+		system("pause");
 		exit(1);
 	}
 	for (int i = 0; i < SymbolTable.size(); i++) {
@@ -61,7 +62,8 @@ int get_address(string x) { // Checks symbol table for given id and returns addr
 		}
 	}
 	// If it reaches below code, id was not found in table
-	cout << "Error: identifier not declared" << endl;
+	cout << "Error: identifier not declared." << endl << "Functions in source can cause this and are not supported!" << endl;
+	system("pause");
 	exit(1);
 }
 
@@ -69,7 +71,7 @@ void printST() { // Prints all stored symbols in symbol table
 	if (SymbolTable.size() == 0) return;
 	cout << "----------- Symbol Table -----------" << endl;
 	for (int i = 0; i < SymbolTable.size(); i++) {
-		cout << "Id: " << SymbolTable[i].identifier << "\t\tAddress: " << SymbolTable[i].memLocation << "\t\tType: " << SymbolTable[i].type << endl;
+		cout << "Identifier: " << SymbolTable[i].identifier << "\t\tAddress: " << SymbolTable[i].memLocation << "\t\tType: " << SymbolTable[i].type << endl;
 	}
 }
 
