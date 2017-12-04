@@ -1,0 +1,30 @@
+@ convert  (fahr : integer)
+{
+           return 5 * (fahr -32)/9;
+}
+
+
+@ convert  (fahr : integer,  x : boolean)
+ boolean yc;
+ integer  c;
+{
+       if (x /= y)    
+           return;
+       fi
+       if ( rx => xc)
+            x := j;
+       else  x := xx;
+       fi
+}
+
+
+%%
+     integer   low, high;
+     floating  k;
+
+     read(low, high, stepxy );
+     while (low < high)  
+         {   write  (low);
+             write (convert [low]);
+             low := low + stepxy;
+         } 

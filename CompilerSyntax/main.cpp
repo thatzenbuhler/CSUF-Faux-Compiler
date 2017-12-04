@@ -52,6 +52,7 @@ int main() {
 	syntax(v);
 	cout << "\nSyntax Analyis complete.\n";
 
+	printST();
 	printIT();
 
 	ofstream outf("output.txt");
