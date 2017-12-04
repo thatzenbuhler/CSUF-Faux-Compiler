@@ -11,6 +11,7 @@
 */
 
 int memory_address = 10000; // Global starting address variable
+Token save; // For instruction generation
 
 class Symbol { // One instance of symbol, collected in vector;
 public:
@@ -86,15 +87,16 @@ void printIT() { // Prints all stored instructions in instr table
 void add_symbol(string ins, int mem, string t) { // Adds identifier to vector
 	Symbol input(ins, mem, t);
 	SymbolTable.push_back(input);
+	memory_address++;
 }
 
-void add_instr(string ins, int mem) { // Places an instruction into the vector
-	Instr input(ins, mem);
+void add_instr(string ins, int oprnd) { // Places an instruction into the vector
+	Instr input(ins, oprnd);
 	InstrTable.push_back(input);
 }
 
 void back_patch() { // Patches jump instructions after statement completes
 	int patch = jumpstack.top();
 	jumpstack.pop();
-	InstrTable[patch].operand = InstrTable.size() - 1;
+	InstrTable[patch].operand = InstrTable.size() + 1;
 }

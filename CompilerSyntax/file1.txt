@@ -1,6 +1,7 @@
 %%
-integer one, extra#x;
+	integer one, two;
 
-read(one, extra#x);
-write(one);
-write(extra#x);
+	if( one > two){
+		one := one * two;
+		two := one / two;
+	} fi;

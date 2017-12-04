@@ -63,7 +63,10 @@ int main() {
 	}
 	
 	// Output Instruction Vector to outf //
-	outf << "TO ADD: INSTRUCTION TABLE" << endl;
+	for (int i = 0; i < InstrTable.size(); i++) {
+		outf <<  i + 1 << "\t" << InstrTable[i].Op << "\t" << InstrTable[i].operand << endl;
+	}
+	outf << endl;
 
 	system("pause");
 	return 0;
