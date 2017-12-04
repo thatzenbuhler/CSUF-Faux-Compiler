@@ -2,6 +2,6 @@
 	integer one, two;
 
 	if( one > two){
-		one := one * two;
+		one := one * 2;
 		two := one / two;
 	} fi;

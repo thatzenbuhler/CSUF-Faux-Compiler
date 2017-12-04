@@ -12,6 +12,7 @@
 
 int memory_address = 10000; // Global starting address variable
 Token save; // For instruction generation
+bool stdinflag = false; // flag for if ID should be pushed or popped from stack
 
 class Symbol { // One instance of symbol, collected in vector;
 public:

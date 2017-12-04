@@ -5,7 +5,7 @@
 	i := 1;
 	read(max);
 	while(i < max){
-		sum := sum + 1;
+		sum := sum + i;
 		i := i + 1;
 	}
 	write(sum+max);
