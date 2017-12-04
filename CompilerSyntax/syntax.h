@@ -78,7 +78,7 @@ void rat17f(ARGS) {
 		OptDeclarationList(ARGS_CALL);
 		StatementList(ARGS_CALL);
 	}
-	else { cout << "Error on line " << linecount << ", program needs %% to run and it is missing."; exit(1); }
+	else { cout << "Error on line " << linecount << ", program needs %% to run and it is missing."; system("pause"); exit(1); }
 }
 
 void OptFunctionDefinitions(ARGS) {
@@ -282,7 +282,7 @@ void Statement(ARGS) {
 
 	else if (v[iterator].lexeme == "while")	
 		While(ARGS_CALL);
-	else { cout << "Error on line " << linecount << ", statement error" << endl; exit(1); }
+	else { cout << "Error on line " << linecount << ", statement error" << endl; system("pause"); exit(1); }
 }
 
 void Compound(ARGS) {
@@ -333,7 +333,7 @@ void If(ARGS) {
 		if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
 		ENDLINE_CHECK
 	}
-	else { cerr << "Error on line " << linecount << ", expected fi" << endl; exit(1); }
+	else { cerr << "Error on line " << linecount << ", expected fi" << endl; system("pause"); exit(1); }
 	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
 	ENDLINE_CHECK
 }
@@ -408,11 +408,11 @@ void Condition(ARGS) {
 	Expression(ARGS_CALL);
 
 	if (symboltype == "=") { add_instr("EQU", -1); jumpstack.push(InstrTable.size() ); add_instr("JUMPZ", -1); }
-	else if (symboltype == "/=") { add_instr("NEQ", -1); jumpstack.push(InstrTable.size() ); add_instr("JUMPZ", -1); } // Modify to use existing instruction
+	else if (symboltype == "/=") { add_instr("NEQ", -1); jumpstack.push(InstrTable.size() ); add_instr("JUMPZ", -1); } 
 	else if (symboltype == "<") { add_instr("LES", -1); jumpstack.push(InstrTable.size() ); add_instr("JUMPZ", -1); }
 	else if (symboltype == ">") { add_instr("GRT", -1); jumpstack.push(InstrTable.size() ); add_instr("JUMPZ", -1); }
-	else if (symboltype == "=>") { add_instr("GEQ", -1); jumpstack.push(InstrTable.size() ); add_instr("JUMPZ", -1); } // Modify to use existing instruction
-	else if (symboltype == "<=") { add_instr("LEQ", -1); jumpstack.push(InstrTable.size() ); add_instr("JUMPZ", -1); } // Modify to use existing instruction
+	else if (symboltype == "=>") { add_instr("GEQ", -1); jumpstack.push(InstrTable.size() ); add_instr("JUMPZ", -1); } 
+	else if (symboltype == "<=") { add_instr("LEQ", -1); jumpstack.push(InstrTable.size() ); add_instr("JUMPZ", -1); } 
 }
 
 void Relop(ARGS) {
@@ -427,7 +427,7 @@ void Relop(ARGS) {
 		iterator++;
 		return;
 	}
-	else { cout << "Error on line "<< linecount << ", expected relational operator" << endl; exit(1); }
+	else { cout << "Error on line "<< linecount << ", expected relational operator" << endl; system("pause"); exit(1); }
 }
 
 void Expression(ARGS) {
@@ -542,6 +542,7 @@ void Primary(ARGS) {
 		else
 		{
 			cout << "Error on line " << linecount << ", expected closing )" << endl;
+			system("pause");
 			exit(1);
 		}
 	}
@@ -567,5 +568,6 @@ void Primary(ARGS) {
 		return;
 	}
 	cout << endl << "Error on line " << linecount << ", expected primary" << endl;
+	system("pause");
 	exit(1);
 }

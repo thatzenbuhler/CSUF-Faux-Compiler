@@ -1,35 +1,15 @@
-@convert (fahr : integer)
-{
-	return 5*(fahr -32)/9;
-}
-
-@multiply (a : integer, b : integer)
-{
-	return (a * b);
-}
-
-@divide (a : integer, b : integer)
-{
-	return (a / b);
-}
-
-@max (x : integer, y : integer)
-{
-	if (x > y)
-	 return x;
-	else
-	return y fi;
-}
 %%
 	integer low, high, step#xy, result;
 
-	read(low, high, step#xy);
+	read(low);
+	read(high);
+	read(step#xy);
+
 	while(low < high)
-	{ write (low);
-	  write (convert[low]);
-	  low := low + step#xy;
+	{ if (low => high) {write(high)} fi;
+	  if (high > low) {write(low) }fi;
 	}
-	result := multiply(low, high);
+	result := low * high;
 	write(result);
-	result := divide(high, low);
+	result := high / low;
 	write(result);
