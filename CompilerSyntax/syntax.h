@@ -235,7 +235,8 @@ void IDs(ARGS) {
 
 	if (v[iterator].tokentype == "Identifier"){
 		PRINTTOKEN
-		add_instr("PUSHM", get_address(v[iterator].lexeme)); // INSTR
+		if (stdinflag) { add_instr("POPM", get_address(v[iterator].lexeme)); stdinflag = false; } // INSTR
+		else { add_instr("PUSHM", get_address(v[iterator].lexeme)); } // INSTR
 		iterator++; 
 	}
 	if (v[iterator].lexeme == ","){
@@ -374,8 +375,8 @@ void Read(ARGS) {
 
 	if (v[iterator].lexeme == "read") { PRINTTOKEN iterator++; }
 	if (v[iterator].lexeme == "(") { PRINTTOKEN iterator++; }
+	add_instr("STDIN", -1); stdinflag = true; // INSTR
 	IDs(ARGS_CALL);
-	add_instr("STDIN", -1); // INSTR
 	if (v[iterator].lexeme == ")") { PRINTTOKEN iterator++; }
 	if (v[iterator].lexeme == ";" && iterator + 1 < v.size()) { PRINTTOKEN iterator++; }
 	ENDLINE_CHECK

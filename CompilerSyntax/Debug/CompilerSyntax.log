@@ -1,15 +1,15 @@
 ﻿  main.cpp
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\assembly.h(57): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\assembly.h(70): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\assembly.h(78): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(308): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(332): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(336): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(346): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(351): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(366): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(380): warning C4018: '<': signed/unsigned mismatch
-c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(396): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\assembly.h(58): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\assembly.h(71): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\assembly.h(79): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(309): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(333): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(337): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(347): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(352): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(367): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(381): warning C4018: '<': signed/unsigned mismatch
+c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\syntax.h(397): warning C4018: '<': signed/unsigned mismatch
 c:\users\tyler\documents\visual studio 2015\projects\compilersyntax\compilersyntax\main.cpp(66): warning C4018: '<': signed/unsigned mismatch
   CompilerSyntax.vcxproj -> C:\Users\Tyler\Documents\Visual Studio 2015\Projects\CompilerSyntax\Debug\CompilerSyntax.exe
   CompilerSyntax.vcxproj -> C:\Users\Tyler\Documents\Visual Studio 2015\Projects\CompilerSyntax\Debug\CompilerSyntax.pdb (Full PDB)

@@ -64,7 +64,11 @@ int main() {
 	
 	// Output Instruction Vector to outf //
 	for (int i = 0; i < InstrTable.size(); i++) {
-		outf <<  i + 1 << "\t" << InstrTable[i].Op << "\t" << InstrTable[i].operand << endl;
+		outf << i + 1 << "\t" << InstrTable[i].Op << "\t";
+		if (InstrTable[i].operand == -1)
+			outf << endl;
+		else
+			outf << InstrTable[i].operand << endl;
 	}
 	outf << endl;
 
