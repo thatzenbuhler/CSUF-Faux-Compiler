@@ -3,6 +3,7 @@
 // This header file includes code used in syntax.h to generate assembly instructions.
 // Tyler Hatzenbuhler
 // Anette Ulrichsen
+//
 
 /*
 	The Symbol Table will collect all the variable names from the declaration list, essentially saving the variables in memory.
