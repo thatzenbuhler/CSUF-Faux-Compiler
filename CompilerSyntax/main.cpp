@@ -24,7 +24,14 @@ int main() {
 	string fileline;
 	Token endline("", "Endline");
 
-	cout << "Enter file to open: ";
+	cout << "----------------------------------------------" << endl
+		 << "         RAT17f Compiler: Version 3.0         " << endl
+		 << "----------------------------------------------" << endl
+		 << "This version relies on RAT17f Simplified. If  " << endl
+		 << "the source code contains function declarations" << endl
+		 << "the compiler may not generate instructions.   " << endl
+		 << "----------------------------------------------" << endl
+	     << "Enter file to open: ";
 	cin >> filename;
 
 	// Opens Source Code Text File
