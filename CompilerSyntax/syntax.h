@@ -525,6 +525,8 @@ void Primary(ARGS) {
 	if (v[iterator].lexeme == "true" || v[iterator].lexeme == "false")
 	{
 		PRINTTOKEN
+		if (v[iterator].lexeme == "true") add_instr("PUSHI", 1); // INSTR
+		else if (v[iterator].lexeme == "false") add_instr("PUSHI", 0); // INSTR
 		iterator++;
 		return;
 	}
